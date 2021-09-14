@@ -6,5 +6,6 @@ declare module "styled-components" {
     background: string;
     primaryFont: string;
     letterSpacing: string;
+    secondary: string;
   }
 }

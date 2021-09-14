@@ -11,12 +11,24 @@ const initalState: User = {
 
 const userReducer = (state = initalState, action: UserAction) => {
   switch (action.type) {
-    case actionType.LOG_IN:
+    case actionType.VALIDATE_TOKEN:
       return {
+        ...state,
+        isAuth: true,
+        loading: false,
         username: action.payload.username,
         id: action.payload.id,
         photourl: action.payload.photourl,
-        isAuth: action.payload.isAuth,
+      };
+    case actionType.LOADING:
+      return { ...state, loading: !state.loading };
+    case actionType.LOG_IN:
+      return {
+        ...state,
+        username: action.payload.username,
+        id: action.payload.id,
+        photourl: action.payload.photourl,
+        isAuth: true,
         loading: false,
       };
 

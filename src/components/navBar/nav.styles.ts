@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BottomShadow } from "../../styles/global";
 
 export const Nav = styled.nav`
   height: 55px;
@@ -9,12 +10,9 @@ export const Nav = styled.nav`
   color: ${({ theme }) => theme.main};
 `;
 
-export const NavWrapper = styled.div`
+export const NavWrapper = styled(BottomShadow)`
   width: 100%;
   border-bottom: 1px solid transparent;
-  -webkit-box-shadow: 0 4px 6px -6px #222;
-  -moz-box-shadow: 0 4px 6px -6px #222;
-  box-shadow: 0 4px 6px -6px #222;
 `;
 
 export const Brand = styled.p`

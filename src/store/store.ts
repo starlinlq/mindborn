@@ -1,10 +1,16 @@
-import { createStore, applyMiddleware, Store } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { DispatchType, User, UserAction } from "./user/userTypes";
 import thunk from "redux-thunk";
-import userReducer from "./user/reducer";
+import user from "./user/reducer";
+import post from "./post/reducer";
+import { Post } from "./post/postTypes";
 
-const store: Store<User, UserAction> & { dispatch: DispatchType } = createStore(
-  userReducer,
+export interface RootState {
+  post: Post;
+  user: User;
+}
+const store = createStore(
+  combineReducers<RootState>({ user, post }),
   applyMiddleware(thunk)
 );
 
