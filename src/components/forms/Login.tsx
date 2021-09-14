@@ -27,7 +27,7 @@ const registerSchema = Yup.object().shape({
 
 export default function Login() {
   const dispatch: Dispatch<any> = useDispatch();
-  const { user }: any = useSelector((state) => state);
+  const { user } = useSelector((state: RootState) => state);
 
   const handleForm = (values: any) => {
     dispatch(loginUser(values));

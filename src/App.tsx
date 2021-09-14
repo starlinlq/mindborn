@@ -13,6 +13,9 @@ import { createBrowserHistory } from "history";
 import { validateUser } from "./store/user/actionCreators";
 import { RootState } from "./store/store";
 
+import Home from "./components/home/Home";
+import Create from "./components/create/Create";
+
 export const history = createBrowserHistory();
 
 function App() {
@@ -44,8 +47,10 @@ function App() {
         />
         <Container>
           <Switch>
+            <Route exact path="/create" component={Create} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
+            <Route path="/" component={Home} />
           </Switch>
         </Container>
       </ThemeProvider>

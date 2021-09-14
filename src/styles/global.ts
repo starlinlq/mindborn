@@ -13,24 +13,37 @@ body{
 `;
 type WrapperTypes = {
   width: string;
-  flex?: boolean;
-  alingCenter?: boolean;
+  flex?: string;
+  align?: string;
+  direction?: string;
+  content?: string;
 };
+
 export const Wrapper = styled.div<WrapperTypes>`
   width: ${({ width }) => width};
-  display: ${({ flex }) => (flex ? "flex" : "block")};
+  display: ${({ flex }) => flex};
+  align-items: ${({ align }) => align};
+  flex-direction: ${({ direction }) => direction};
+  justify-content: ${({ content }) => content};
+`;
+
+export const RowCenter = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: 35px;
+  font-size: 17px;
 `;
 
 export const BottomShadow = styled.div`
-  -webkit-box-shadow: 0 4px 6px -6px #222;
-  -moz-box-shadow: 0 4px 6px -6px #222;
-  box-shadow: 0 4px 6px -6px #222;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 `;
 type ButtonTypes = {
   width: string;
   main?: boolean;
   margin: string;
   padding: string;
+  height?: string;
 };
 export const Button = styled.button<ButtonTypes>`
   color: ${({ theme }) => theme.main};
@@ -45,6 +58,7 @@ export const Button = styled.button<ButtonTypes>`
   letter-spacing: ${({ theme }) => theme.letterSpacing};
   transition: 200ms;
   cursor: pointer;
+  height: ${({ height }) => height};
 
   &:hover {
     border-color: black;
@@ -53,7 +67,15 @@ export const Button = styled.button<ButtonTypes>`
   }
 `;
 
+export const Submit = styled(Button)`
+  //position: sticky;
+  //top: 80px;
+  //right: 0;
+`;
+
 export const Link = styled.a`
+  display: flex;
+  align-items: center;
   text-decoration: none;
 `;
 
@@ -103,6 +125,21 @@ export const IconWrapper = styled.div`
   padding: 0 6px;
   color: #6ea8f7;
 `;
+
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
+export const To = styled.a`
+  color: ${({ theme }) => theme.secondary};
+  text-decoration: none;
+  width: 100%;
+  padding-left: 5px;
+  &:hover {
+    color: blue;
+  }
+`;
+
 export const Container = styled.div`
   padding-right: 10px;
   padding-left: 10px;
