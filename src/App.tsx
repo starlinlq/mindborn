@@ -12,9 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { createBrowserHistory } from "history";
 import { validateUser } from "./store/user/actionCreators";
 import { RootState } from "./store/store";
-
-import Home from "./components/home/Home";
-import Create from "./components/create/Create";
+import Home from "./layout/Home";
+import { Submit } from "./layout/Submit";
 
 export const history = createBrowserHistory();
 
@@ -47,7 +46,7 @@ function App() {
         />
         <Container>
           <Switch>
-            <Route exact path="/create" component={Create} />
+            <Route exact path="/submit" component={Submit} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/" component={Home} />
