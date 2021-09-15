@@ -38,8 +38,10 @@ export const Photo = styled.img`
 `;
 
 export const Title = styled.h1`
-  font-family: ${({ theme }) => theme.titleFont};
+  font-family: ${({ theme }) => theme.primaryFont};
+  font-weight: normal;
   font-size: 20px;
+  letter-spacing: 0.03em;
 `;
 
 export const Topic = styled.p`
@@ -89,6 +91,7 @@ export const Like = styled.div`
   border: 1px solid gray;
   border-radius: 10px;
   padding: 2px 5px;
+  cursor: pointer;
 
   display: flex;
   align-items: center;

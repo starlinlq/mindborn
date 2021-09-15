@@ -1,15 +1,21 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
+import { Comment, Reply, SinglePost } from "../store/post/postTypes";
 axios.defaults.baseURL = "http://localhost:3000/api/v1";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
+const headers = {
+  headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+};
 
 const requests = {
   get: <T>(url: string, data?: any) => axios.get<T>(url, data).then(response),
-  post: <T>(url: string, data: any) => axios.post<T>(url, data).then(response),
+  post: <T>(url: string, data?: any) =>
+    axios.post<T>(url, data, headers).then(response),
   patch: <T>(url: string, data: any) =>
-    axios.patch<T>(url, data).then(response),
-  delete: <T>(url: string, data?: any) => axios.delete<T>(url).then(response),
+    axios.patch<T>(url, data, headers).then(response),
+  delete: <T>(url: string, data?: any) =>
+    axios.delete<T>(url, headers).then(response),
 };
 
 const user = {
@@ -23,7 +29,29 @@ const user = {
       headers: { Authorization: token },
     }),
 };
-const post = {};
+const post = {
+  create: (data: { title: string; description: string; category: string }) =>
+    requests.post<{ id: string }>("/post", data),
+  getSinglePost: (id: string) =>
+    requests.get<{ post: SinglePost; comments: Comment[] }>(`/post/${id}`),
+  getPosts: () => requests.get<SinglePost[]>("/post"),
+  like: (id: string) => requests.post(`/post/upvote/${id}`),
+  dislike: (id: string) => requests.delete(`/post/upvote/${id}`),
+};
+
+const comment = {
+  create: (comment: string, id: string) =>
+    requests.post<any>("/comment", { content: comment, postId: id }),
+  loadReplies: (id: string) => requests.get<any>(`comment/replies/${id}`),
+  reply: (comment: string, commentId: string, postId: string) =>
+    requests.post<Reply>(`comment/reply`, {
+      content: comment,
+      postId,
+      commentId,
+    }),
+  like: (id: string) => requests.post(`/comment/like/${id}`),
+  dislike: (id: string) => requests.delete(`/comment/like/${id}`),
+};
 const features = {};
 
 axios.interceptors.response.use(
@@ -53,5 +81,5 @@ axios.interceptors.response.use(
   }
 );
 
-const agent = { user, post, features };
+const agent = { user, post, features, comment };
 export default agent;

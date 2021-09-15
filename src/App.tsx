@@ -14,6 +14,7 @@ import { validateUser } from "./store/user/actionCreators";
 import { RootState } from "./store/store";
 import Home from "./layout/Home";
 import { Submit } from "./layout/Submit";
+import Post from "./layout/Post";
 
 export const history = createBrowserHistory();
 
@@ -47,9 +48,10 @@ function App() {
         <Container>
           <Switch>
             <Route exact path="/submit" component={Submit} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/post/:id" component={Post} />
           </Switch>
         </Container>
       </ThemeProvider>

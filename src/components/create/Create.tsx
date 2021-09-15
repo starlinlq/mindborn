@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { InputWrapper, Input, Button, Wrapper } from "../../styles/global";
 import {
   CreateWrapper,
@@ -9,6 +9,9 @@ import {
 } from "./create.style";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { PostAction } from "../../store/post/postTypes";
+import { createPost } from "../../store/post/actionCreators";
 
 const createSchema = Yup.object().shape({
   category: Yup.string().required(),
@@ -20,8 +23,9 @@ const createSchema = Yup.object().shape({
 });
 
 export default function Create() {
+  const dispatch: Dispatch<any> = useDispatch();
   const handleForm = (values: any) => {
-    console.log(values);
+    dispatch(createPost(values));
   };
   const formik = useFormik({
     initialValues: {

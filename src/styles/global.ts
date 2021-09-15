@@ -165,6 +165,17 @@ const rotate360 = keyframes`
     transform: rotate(360deg);
   }
 `;
+type TextAreaProps = {
+  valid?: boolean;
+};
+export const TextArea = styled.textarea<TextAreaProps>`
+  width: 100%;
+  border: 1px solid #eff6ff;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-bottom: 5px;
+`;
 
 const Spinner = styled.div`
   animation: ${rotate360} 1s linear infinite;
@@ -178,6 +189,7 @@ const Spinner = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  margin: auto;
 `;
 
 export default Spinner;
