@@ -16,7 +16,14 @@ export default function Home({ children }: Props) {
         <Filter />
         <DisplayPost />
       </Wrapper>
-      <Submit type="button" width="200px" margin="0" height="45px" padding="0">
+      <Submit
+        main
+        type="button"
+        width="200px"
+        margin="0"
+        height="45px"
+        padding="0"
+      >
         Create Post
       </Submit>
     </LayoutWrapper>

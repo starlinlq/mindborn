@@ -8,6 +8,7 @@ export type SinglePost = {
   _id: string;
   createdAt: string;
   votesCount: number;
+  bookmarkIds: string[];
 };
 
 export type Reply = {

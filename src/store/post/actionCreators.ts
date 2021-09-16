@@ -20,7 +20,6 @@ export function createPost(
   ): Promise<void> => {
     try {
       let id = await agent.post.create(data);
-      console.log(id);
 
       // let data = await agent.user.validate();
       // dispatch({ type: actionTypes.VALIDATE_TOKEN, payload: data });
@@ -40,7 +39,6 @@ export function getSinglePost(
     try {
       dispatch({ type: actionTypes.LOADING, payload: {} });
       let data = await agent.post.getSinglePost(id);
-      console.log(data);
 
       dispatch({
         type: actionTypes.GET_SINGLE,
@@ -65,8 +63,6 @@ export function getPosts(): ThunkAction<Promise<void>, {}, {}, AnyAction> {
     getState
   ): Promise<void> => {
     try {
-      console.log("hello poosts");
-
       // let data = await agent.user.validate();
       // dispatch({ type: actionTypes.VALIDATE_TOKEN, payload: data });
     } catch (error: any) {
@@ -85,8 +81,7 @@ export function createComment(
   ): Promise<void> => {
     try {
       let data = await agent.comment.create(comment, id);
-      console.log(data);
-
+      toast.info("comment created");
       dispatch({
         type: actionTypes.CREATE_COMMENT,
         payload: {
@@ -119,7 +114,6 @@ export function sortComments(
       dispatch({ type: actionTypes.LOADING_COMMENTS, payload: true });
 
       let data = await agent.comment.sort(postId, query, limit);
-      console.log(data);
 
       dispatch({ type: actionTypes.SORT_COMMENTS, payload: data.comments });
     } catch (error: any) {

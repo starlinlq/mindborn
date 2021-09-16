@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import agent from "../../api/agent";
 import { Reply } from "../../store/post/postTypes";
@@ -6,6 +6,8 @@ import Spinner from "../../styles/global";
 import Comment from "../singlecomment/Comment";
 import CreateComment from "../forms/CreateComment";
 import { DisplayWrapper, ChildrenWrapper } from "./displayComment.styles";
+import { useDispatch } from "react-redux";
+import * as actionTypes from "../../store/post/actionTypes";
 
 type Props = {
   content: string;
@@ -32,6 +34,7 @@ export default function DisplayComment({
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState(false);
   const [replyLoading, setReplyLoading] = useState(false);
+  const dispatch = useDispatch<Dispatch<any>>();
 
   useEffect(() => {
     async function loadReplies() {
@@ -50,9 +53,37 @@ export default function DisplayComment({
     setReplyLoading(true);
     try {
       let reply = await agent.comment.reply(comment, _id, postId);
-      setReplies([reply, ...replies]);
+      setReplies((prev) => [reply, ...prev]);
       setDisplay(false);
       setReplyLoading(false);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleSelected = async (
+    replyId: string,
+    reply: boolean,
+    type: string
+  ) => {
+    let commentId = _id;
+    try {
+      if (type === "remove" && reply) {
+        await agent.comment.deleteReply(commentId, replyId);
+        let filter = replies.filter((match) => match._id !== replyId);
+        dispatch({
+          type: actionTypes.REMOVE_COMMENT_COUNT_REPLY,
+          payload: commentId,
+        });
+        setReplies(filter);
+        toast.info("comment delete");
+        return;
+      } else if (!reply && type === "remove") {
+        await agent.comment.delete(commentId);
+        dispatch({ type: actionTypes.DELETE_COMMENT, payload: commentId });
+
+        toast.info("Comment deleted");
+      }
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -71,6 +102,7 @@ export default function DisplayComment({
         likeCount={likeCount}
         repliesCount={repliesCount}
         userId={userId}
+        handleSelected={handleSelected}
       />
       <ChildrenWrapper>
         {active && (
@@ -80,7 +112,7 @@ export default function DisplayComment({
             ) : (
               display && (
                 <div>
-                  <CreateComment id="23" addReply={addReply} />
+                  <CreateComment id={_id} addReply={addReply} />
                 </div>
               )
             )}
@@ -97,6 +129,7 @@ export default function DisplayComment({
                     userId={data.userId}
                     likeCount={data.likeCount}
                     createdAt={data.createdAt}
+                    handleSelected={handleSelected}
                   />
                 ))}
           </>

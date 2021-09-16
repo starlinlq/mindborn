@@ -20,6 +20,7 @@ import CreateComment from "../forms/CreateComment";
 import { history } from "../../App";
 import LikeCount from "../likeCount/LikeCount";
 import CommentWrapper from "../commentWrapper/CommentWrapper";
+import BookmarkPost from "../bookmarkPost/BookmarkPost";
 
 export default function SinglePost() {
   const { id } = useParams<{ id: string }>();
@@ -47,7 +48,11 @@ export default function SinglePost() {
             {singlePost.createdBy.username}
           </Author>
         </AuthorWrapper>
-        <FiBookmark style={{ fontSize: "18px", color: "grey" }} />
+        <BookmarkPost
+          createdBy={singlePost.createdBy._id}
+          postId={singlePost._id}
+          bookmarkIds={singlePost.bookmarkIds}
+        />
       </Wrapper>
       <Wrapper width="100%" flex="flex" align="center">
         <Title>{singlePost.title}</Title>

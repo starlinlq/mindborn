@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sortComments } from "../../store/post/actionCreators";
 import { RootState } from "../../store/store";
@@ -7,21 +7,30 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import DisplayComment from "../displayComment/DisplayComment";
 import { Section, Sort, Wrapper, Option, SortWrapper } from "./styles";
+
 type Props = {
   id: string;
 };
 export default function CommentWrapper({ id }: Props) {
   const [sortBy, setSortBy] = useState("");
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   const [limit, setLimit] = useState(10);
   const { comments, commentLoading, commentsLenght } = useSelector(
     (state: RootState) => state.post
   );
   const dispatch = useDispatch<Dispatch<any>>();
 
+  useEffect(() => {
+    if (commentsLenght === 0) {
+      setHasMore(false);
+    }
+  }, []);
+
   const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(sortComments(id, event.target.value, limit));
-    setSortBy(event.target.value);
+    if (commentsLenght > 2) {
+      dispatch(sortComments(id, event.target.value, limit));
+      setSortBy(event.target.value);
+    }
   };
 
   const fetchMoreComments = () => {
@@ -55,8 +64,12 @@ export default function CommentWrapper({ id }: Props) {
             hasMore={hasMore}
             loader={<Spinner />}
             endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
+              <p style={{ textAlign: "center", marginTop: "10px" }}>
+                <b>
+                  {commentsLenght === 0
+                    ? "Be the first to comment"
+                    : " No more comments to display"}
+                </b>
               </p>
             }
           >

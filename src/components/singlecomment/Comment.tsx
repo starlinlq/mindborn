@@ -3,7 +3,19 @@ import { Wrapper } from "../../styles/global";
 import LikeCount from "../likeCount/LikeCount";
 import { Photo, Author, Comments } from "../post/post.styles";
 import { AuthorSection } from "../singlePost/singlePost.styles";
-import { CommentWrapper, Content, Date, Reply } from "./comment.styled";
+import {
+  CommentWrapper,
+  Content,
+  Date,
+  Options,
+  OptionsReply,
+  Reply,
+  Select,
+} from "./comment.styled";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { useState } from "react";
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 type Props = {
   isReply?: boolean;
@@ -17,6 +29,7 @@ type Props = {
   postId?: string;
   likeIds: { _id: string }[];
   setCreate?: Function;
+  handleSelected?: Function;
 };
 
 export default function Comment({
@@ -31,13 +44,57 @@ export default function Comment({
   _id,
   setCreate,
   likeIds,
+  handleSelected,
 }: Props) {
+  const [displayOptions, setDisplayOptions] = useState(false);
+  const { id } = useSelector((state: RootState) => state.user);
+
+  const handleDisplay = (active: boolean) => {
+    setDisplayOptions(active);
+  };
+
   return (
     <CommentWrapper>
-      <AuthorSection>
-        <Photo src="https://phlearn.com/wp-content/uploads/2020/08/soft-light-coloring-photoshop-banner-after.jpg" />
-        <Author>{userId.username}</Author>
-        <Date> {createdAt.slice(0, 10)}</Date>
+      <AuthorSection
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex" }}>
+          <Photo src="https://phlearn.com/wp-content/uploads/2020/08/soft-light-coloring-photoshop-banner-after.jpg" />
+          <Author>{userId.username}</Author>
+          <Date> {createdAt.slice(0, 10)}</Date>
+        </div>
+
+        {userId._id === id && (
+          <OptionsReply>
+            <BiDotsHorizontalRounded onClick={() => handleDisplay(true)} />
+
+            <Options
+              active={displayOptions}
+              onMouseLeave={() => handleDisplay(false)}
+            >
+              <Select
+                onClick={() => {
+                  setDisplayOptions(false);
+                  handleSelected!(_id, isReply, "edit");
+                }}
+              >
+                Edit
+              </Select>
+              <Select
+                onClick={() => {
+                  setDisplayOptions(false);
+                  handleSelected!(_id, isReply, "remove");
+                }}
+              >
+                Remove
+              </Select>
+            </Options>
+          </OptionsReply>
+        )}
       </AuthorSection>
       <Wrapper width="100%">
         <Content>{content}</Content>
@@ -49,7 +106,7 @@ export default function Comment({
           count={likeCount}
           likeIds={likeIds}
         />
-        {isReply ? null : (
+        {!isReply && (
           <>
             <Comments onClick={() => setActive!(true)}>
               <Reply>{repliesCount} </Reply>

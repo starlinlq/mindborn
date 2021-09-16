@@ -1,7 +1,7 @@
 export const lightTheme = {
   main: "white",
   secondary: "black",
-  background: "#FDFDFD",
+  background: "#DAE0E6",
   primaryFont: `'Roboto', sans-serif`,
   titleFont: `'IBM Plex Sans', sans-serif`,
   letterSpacing: "0.05em",

@@ -21,7 +21,6 @@ export const history = createBrowserHistory();
 function App() {
   const dispatch: Dispatch<any> = useDispatch();
   const data = useSelector((state: RootState) => state);
-  console.log(data.user);
 
   useEffect(() => {
     let token = localStorage.getItem("Authorization");

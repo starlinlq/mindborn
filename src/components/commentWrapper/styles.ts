@@ -13,6 +13,7 @@ export const Section = styled.section`
 export const Sort = styled.select`
   border: none;
   color: #3d5cf0;
+  cursor: pointer;
 `;
 
 export const SortWrapper = styled.div`

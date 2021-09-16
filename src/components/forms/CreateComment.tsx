@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { createComment } from "../../store/post/actionCreators";
 import agent from "../../api/agent";
+import * as actionTypes from "../../store/post/actionTypes";
 
 const commentSchema = Yup.object().shape({
   comment: Yup.string()
@@ -26,12 +27,15 @@ export default function CreateComment({ id, addReply }: Props) {
   const dispatch: Dispatch<any> = useDispatch();
   const { user } = useSelector((state: RootState) => state);
 
-  const handleForm = (values: any) => {
+  const handleForm = (values: any, { resetForm }: any) => {
     if (addReply) {
+      dispatch({ type: actionTypes.ADD_COMMNET_COUNT_REPLY, payload: id });
+
       addReply(values.comment);
       return;
     }
     dispatch(createComment(values.comment, id));
+    resetForm();
   };
   const formik = useFormik({
     initialValues: {

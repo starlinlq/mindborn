@@ -41,6 +41,9 @@ const post = {
   getPosts: () => requests.get<SinglePost[]>("/post"),
   like: (id: string) => requests.post(`/post/upvote/${id}`),
   dislike: (id: string) => requests.delete(`/post/upvote/${id}`),
+  bookmark: (postId: string, createdBy: string) =>
+    requests.post(`bookmark`, { postId, createdBy }),
+  unBookmark: (id: string) => requests.delete(`bookmark/${id}`),
 };
 
 const comment = {
@@ -59,6 +62,9 @@ const comment = {
     ),
   like: (id: string) => requests.post(`/comment/like/${id}`),
   dislike: (id: string) => requests.delete(`/comment/like/${id}`),
+  deleteReply: (commentId: string, replyId: string) =>
+    requests.delete(`/comment/?main=${commentId}&reply=${replyId}`),
+  delete: (commentId: string) => requests.delete(`/comment/${commentId}`),
 };
 const features = {};
 

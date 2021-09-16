@@ -28,7 +28,6 @@ export default function LikeCount({ count, likeIds, _id, type }: Props) {
       setLiked(true);
     }
   }, []);
-  console.log(likeIds);
 
   const handleLiked = async () => {
     try {
