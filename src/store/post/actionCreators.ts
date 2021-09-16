@@ -40,9 +40,15 @@ export function getSinglePost(
     try {
       dispatch({ type: actionTypes.LOADING, payload: {} });
       let data = await agent.post.getSinglePost(id);
+      console.log(data);
+
       dispatch({
         type: actionTypes.GET_SINGLE,
-        payload: { post: data.post, comments: data.comments },
+        payload: {
+          post: data.post,
+          comments: data.comments,
+          commentsCount: data.commentsCount,
+        },
       });
       // let data = await agent.user.validate();
       // dispatch({ type: actionTypes.VALIDATE_TOKEN, payload: data });
@@ -68,6 +74,7 @@ export function getPosts(): ThunkAction<Promise<void>, {}, {}, AnyAction> {
     }
   };
 }
+
 export function createComment(
   comment: string,
   id: string
@@ -94,6 +101,29 @@ export function createComment(
         },
       });
     } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+}
+
+export function sortComments(
+  postId: string,
+  query: string,
+  limit: number
+): ThunkAction<Promise<void>, {}, {}, AnyAction> {
+  return async (
+    dispatch: ThunkDispatch<{}, {}, AnyAction>,
+    getState
+  ): Promise<void> => {
+    try {
+      dispatch({ type: actionTypes.LOADING_COMMENTS, payload: true });
+
+      let data = await agent.comment.sort(postId, query, limit);
+      console.log(data);
+
+      dispatch({ type: actionTypes.SORT_COMMENTS, payload: data.comments });
+    } catch (error: any) {
+      dispatch({ type: actionTypes.LOADING_COMMENTS, payload: false });
       toast.error(error.message);
     }
   };

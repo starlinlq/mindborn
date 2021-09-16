@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import agent from "../../api/agent";
 import { Reply } from "../../store/post/postTypes";
@@ -99,7 +99,6 @@ export default function DisplayComment({
                     createdAt={data.createdAt}
                   />
                 ))}
-            close
           </>
         )}
       </ChildrenWrapper>

@@ -33,7 +33,11 @@ const post = {
   create: (data: { title: string; description: string; category: string }) =>
     requests.post<{ id: string }>("/post", data),
   getSinglePost: (id: string) =>
-    requests.get<{ post: SinglePost; comments: Comment[] }>(`/post/${id}`),
+    requests.get<{
+      post: SinglePost;
+      comments: Comment[];
+      commentsCount: number;
+    }>(`/post/${id}`),
   getPosts: () => requests.get<SinglePost[]>("/post"),
   like: (id: string) => requests.post(`/post/upvote/${id}`),
   dislike: (id: string) => requests.delete(`/post/upvote/${id}`),
@@ -49,6 +53,10 @@ const comment = {
       postId,
       commentId,
     }),
+  sort: (postId: string, query: string, limit: number) =>
+    requests.get<{ comments: Comment[] }>(
+      `/comment/?postid=${postId}&query=${query}&limit=${limit}`
+    ),
   like: (id: string) => requests.post(`/comment/like/${id}`),
   dislike: (id: string) => requests.delete(`/comment/like/${id}`),
 };

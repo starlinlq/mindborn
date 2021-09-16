@@ -1,9 +1,7 @@
-import { FiHeart } from "react-icons/fi";
 import { IoChatboxOutline } from "react-icons/io5";
 import { Wrapper } from "../../styles/global";
-import CreateComment from "../forms/CreateComment";
 import LikeCount from "../likeCount/LikeCount";
-import { Photo, Author, Comments, Count, Like } from "../post/post.styles";
+import { Photo, Author, Comments } from "../post/post.styles";
 import { AuthorSection } from "../singlePost/singlePost.styles";
 import { CommentWrapper, Content, Date, Reply } from "./comment.styled";
 

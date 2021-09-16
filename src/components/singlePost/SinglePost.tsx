@@ -3,16 +3,13 @@ import Spinner, { Wrapper } from "../../styles/global";
 import {
   Author,
   AuthorWrapper,
-  Count,
   Comments,
   Photo,
   Title,
   Topic,
-  Like,
 } from "../post/post.styles";
 import { IoChatboxOutline } from "react-icons/io5";
-import { FiHeart, FiBookmark } from "react-icons/fi";
-import { RiBookmarkFill } from "react-icons/ri";
+import { FiBookmark } from "react-icons/fi";
 import { SinglePostWrapper, Description } from "./singlePost.styles";
 import { Dispatch, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,9 +18,6 @@ import { useParams } from "react-router";
 import { getSinglePost } from "../../store/post/actionCreators";
 import CreateComment from "../forms/CreateComment";
 import { history } from "../../App";
-import Comment from "../singlecomment/Comment";
-import { Content } from "../singlecomment/comment.styled";
-import DisplayComment from "../displayComment/DisplayComment";
 import LikeCount from "../likeCount/LikeCount";
 import CommentWrapper from "../commentWrapper/CommentWrapper";
 
@@ -77,7 +71,7 @@ export default function SinglePost() {
       <Wrapper width="100%">
         <CreateComment id={singlePost._id} />
       </Wrapper>
-      <CommentWrapper />
+      <CommentWrapper id={id} />
     </SinglePostWrapper>
   );
 }

@@ -2,10 +2,12 @@ import { FilterWrapper, Selected, Type } from "./filter.styles";
 import { FaPepperHot } from "react-icons/fa";
 import { BsGem } from "react-icons/bs";
 import { ImShift } from "react-icons/im";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Filter() {
   const [selected, setSelected] = useState("hot");
+  const dipatch = useDispatch<Dispatch<any>>();
 
   const handleFilter = (s: string) => {
     setSelected(s);

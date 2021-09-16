@@ -13,6 +13,8 @@ const initialState: Post = {
     interestingVotes: [],
     category: "",
   },
+  commentLoading: false,
+  commentsLenght: 0,
   comments: [],
   posts: [],
   loading: false,
@@ -37,9 +39,14 @@ export default function reducer(state = initialState, action: PostAction) {
           votesCount: action.payload.post.votesCount,
         },
         comments: [...action.payload.comments],
+        commentsLenght: action.payload.commentsCount,
       };
     case actionTypes.CREATE_COMMENT:
       return { ...state, comments: [action.payload, ...state.comments] };
+    case actionTypes.SORT_COMMENTS:
+      return { ...state, comments: [...action.payload] };
+    case actionTypes.LOADING_COMMENTS:
+      return { ...state, loadingComment: action.payload };
     default:
       return state;
   }

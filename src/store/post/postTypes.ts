@@ -35,6 +35,8 @@ export type Post = {
   posts: SinglePost[];
   comments: Comment[] | any[];
   loading: boolean;
+  commentLoading: boolean;
+  commentsLenght: number;
 };
 
 export type PostAction = {
