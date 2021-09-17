@@ -38,9 +38,9 @@ const post = {
       comments: Comment[];
       commentsCount: number;
     }>(`/post/${id}`),
-  getPosts: (url: string, filter?: string, date?: string) =>
+  getPosts: (url: string, filter: string, category: string, date?: string) =>
     requests.get<{ posts: SinglePost[] }>(
-      `${url}/?filterBy=${filter}`,
+      `${url}/?filterBy=${filter}&category=${category}`,
       headers
     ),
   like: (id: string) => requests.post(`/post/upvote/${id}`),

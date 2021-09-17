@@ -15,11 +15,11 @@ export const List = styled(Wrapper)`
   border-bottom: 1px solid #eff6ff;
 `;
 
-type Title = {
+type TitleProps = {
   active?: boolean;
 };
 
-export const Title = styled.a<Title>`
+export const Title = styled.a<TitleProps>`
   text-decoration: none;
   color: ${({ theme, active }) => (active ? "blue" : theme.secondary)};
   font-family: ${({ theme }) => theme.primaryFont};

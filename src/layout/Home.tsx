@@ -1,29 +1,37 @@
-import Filter from "../components/filter/Filter";
 import Menu from "../components/menu/Menu";
 import { Wrapper, Submit } from "../styles/global";
 import { LayoutWrapper } from "./layout.styles";
 import DisplayPost from "../components/displaypost/DisplayPost";
+import CategoryList from "../components/categoryList/CategoryList";
+import { history } from "../App";
 
 type Props = {
   children: React.ReactNode;
 };
 export default function Home({ children }: Props) {
+  const handleClick = () => {
+    history.push("/submit");
+  };
   return (
     <LayoutWrapper>
       <Menu />
       <Wrapper width="60%">
         <DisplayPost url="/post" />
       </Wrapper>
-      <Submit
-        main
-        type="button"
-        width="200px"
-        margin="0"
-        height="45px"
-        padding="0"
-      >
-        Create Post
-      </Submit>
+      <Wrapper width="200px">
+        <Submit
+          onClick={handleClick}
+          main
+          type="button"
+          width="200px"
+          margin="0"
+          height="45px"
+          padding="0"
+        >
+          Create Post
+        </Submit>
+        <CategoryList />
+      </Wrapper>
     </LayoutWrapper>
   );
 }

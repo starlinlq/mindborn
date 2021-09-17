@@ -34,10 +34,7 @@ export default function Menu() {
           Bookmark
         </Title>
       </List>
-      <List width="100%" flex="flex" align="center">
-        <VscListFlat style={{ color: "gray" }} />
-        <Title>Category List</Title>
-      </List>
+
       <List width="100%" flex="flex" align="center">
         <VscSettingsGear style={{ color: "gray" }} />
         <Title

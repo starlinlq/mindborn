@@ -19,6 +19,7 @@ const initialState: Post = {
   comments: [],
   posts: [],
   loading: false,
+  category: "all",
 };
 export default function reducer(state = initialState, action: PostAction) {
   switch (action.type) {
@@ -101,6 +102,9 @@ export default function reducer(state = initialState, action: PostAction) {
           }),
         ],
       };
+
+    case actionTypes.CATEGORY:
+      return { ...state, category: action.payload };
 
     default:
       return state;
