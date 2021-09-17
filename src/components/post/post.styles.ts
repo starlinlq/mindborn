@@ -24,6 +24,7 @@ export const Author = styled.h5`
   color: gray;
   margin-left: 5px;
   letter-spacing: 0.05em;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;

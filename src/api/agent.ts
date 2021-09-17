@@ -38,7 +38,11 @@ const post = {
       comments: Comment[];
       commentsCount: number;
     }>(`/post/${id}`),
-  getPosts: () => requests.get<SinglePost[]>("/post"),
+  getPosts: (url: string, filter?: string, date?: string) =>
+    requests.get<{ posts: SinglePost[] }>(
+      `${url}/?filterBy=${filter}`,
+      headers
+    ),
   like: (id: string) => requests.post(`/post/upvote/${id}`),
   dislike: (id: string) => requests.delete(`/post/upvote/${id}`),
   bookmark: (postId: string, createdBy: string) =>

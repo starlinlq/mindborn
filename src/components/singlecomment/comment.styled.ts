@@ -54,6 +54,7 @@ export const Select = styled.p`
   padding: 5px;
   border-radius: 10px;
   font-size: 16px;
+  cursor: pointer;
   background-color: #fdfdfd;
   &:hover {
     color: blue;

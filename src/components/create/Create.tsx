@@ -16,7 +16,7 @@ import { createPost } from "../../store/post/actionCreators";
 const createSchema = Yup.object().shape({
   category: Yup.string().required(),
   title: Yup.string()
-    .max(50, "title must be 50 character or less")
+    .max(100, "title must be 50 character or less")
     .min(5, "title must be 5 characters or more")
     .required(),
   description: Yup.string().max(1000, "title must be 1000 character or less"),
@@ -57,7 +57,7 @@ export default function Create() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.title}
-            maxLength={60}
+            maxLength={100}
             borderColor={
               formik.errors.title && formik.touched.title ? "red" : "#eff6ff"
             }

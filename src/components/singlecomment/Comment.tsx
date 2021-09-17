@@ -16,6 +16,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useState } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 type Props = {
   isReply?: boolean;
@@ -70,7 +71,17 @@ export default function Comment({
 
         {userId._id === id && (
           <OptionsReply>
-            <BiDotsHorizontalRounded onClick={() => handleDisplay(true)} />
+            {displayOptions ? (
+              <AiOutlineCloseCircle
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDisplay(false)}
+              />
+            ) : (
+              <BiDotsHorizontalRounded
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDisplay(true)}
+              />
+            )}
 
             <Options
               active={displayOptions}

@@ -16,10 +16,10 @@ export const Type = styled.span`
   margin-left: 5px;
   color: ${({ theme }) => theme.secondary};
 `;
-type Selected = {
+type SelectedProps = {
   selected: boolean;
 };
-export const Selected = styled.div<Selected>`
+export const Selected = styled.div<SelectedProps>`
   background-color: ${({ selected }) => selected && "#eff6ff"};
   display: flex;
   align-items: center;
@@ -27,4 +27,7 @@ export const Selected = styled.div<Selected>`
   padding: 5px 10px;
   margin-right: 10px;
   cursor: pointer;
+  &:hover {
+    background-color: #eff6ff;
+  }
 `;

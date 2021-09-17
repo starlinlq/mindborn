@@ -4,26 +4,38 @@ import { BsGem } from "react-icons/bs";
 import { ImShift } from "react-icons/im";
 import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
+import { BiDonateHeart } from "react-icons/bi";
 
-export default function Filter() {
-  const [selected, setSelected] = useState("hot");
+type Props = {
+  setFilter: Function;
+};
+export default function Filter({ setFilter }: Props) {
+  const [selected, setSelected] = useState("-commentCount");
   const dipatch = useDispatch<Dispatch<any>>();
 
   const handleFilter = (s: string) => {
+    setFilter(s);
     setSelected(s);
   };
   return (
     <FilterWrapper>
       <Selected
-        onClick={() => handleFilter("hot")}
-        selected={selected === "hot" ? true : false}
+        onClick={() => handleFilter("-commentCount")}
+        selected={selected === "-commentCount" ? true : false}
       >
         <FaPepperHot style={{ color: "red" }} />
         <Type>Hot</Type>
       </Selected>
       <Selected
-        onClick={() => handleFilter("new")}
-        selected={selected === "new" ? true : false}
+        onClick={() => handleFilter("-likeCount")}
+        selected={selected === "-likeCount" ? true : false}
+      >
+        <BiDonateHeart />
+        <Type>Best</Type>
+      </Selected>
+      <Selected
+        onClick={() => handleFilter("-createdAt")}
+        selected={selected === "-createdAt" ? true : false}
       >
         <BsGem />
         <Type>New</Type>

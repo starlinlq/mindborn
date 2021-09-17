@@ -1,9 +1,9 @@
-import CreateInput from "../components/createinput/CreateInput";
 import Filter from "../components/filter/Filter";
-import DisplayPost from "../components/home/DisplayPost";
 import Menu from "../components/menu/Menu";
 import { Wrapper, Submit } from "../styles/global";
 import { LayoutWrapper } from "./layout.styles";
+import DisplayPost from "../components/displaypost/DisplayPost";
+
 type Props = {
   children: React.ReactNode;
 };
@@ -12,9 +12,7 @@ export default function Home({ children }: Props) {
     <LayoutWrapper>
       <Menu />
       <Wrapper width="60%">
-        <CreateInput />
-        <Filter />
-        <DisplayPost />
+        <DisplayPost url="/post" />
       </Wrapper>
       <Submit
         main
