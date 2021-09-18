@@ -82,7 +82,7 @@ export default function ProfileCard() {
   };
 
   const handleClick = () => {
-    history.push("/account");
+    history.push("/settings");
   };
   return (
     <ProfileCardContainer>

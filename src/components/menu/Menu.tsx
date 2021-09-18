@@ -46,8 +46,8 @@ export default function Menu() {
       <List width="100%" flex="flex" align="center">
         <VscSettingsGear style={{ color: "gray" }} />
         <Title
-          active={history.location.pathname === "/account" ? true : false}
-          href="/account"
+          active={history.location.pathname === "/settings" ? true : false}
+          href="/settings"
         >
           Account
         </Title>

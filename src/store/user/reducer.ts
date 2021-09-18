@@ -28,9 +28,12 @@ const userReducer = (state = initalState, action: UserAction) => {
         username: action.payload.username,
         id: action.payload.id,
         photourl: action.payload.photourl,
+
         isAuth: true,
         loading: false,
       };
+    case actionType.UPDATE_ID:
+      return { ...state, username: action.payload.username };
 
     default:
       return state;

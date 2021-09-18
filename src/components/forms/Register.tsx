@@ -16,9 +16,9 @@ import { RiLockPasswordFill } from "react-icons/ri";
 
 const registerSchema = Yup.object().shape({
   email: Yup.string().email().required(),
-  name: Yup.string().required(),
-  password: Yup.string().required(),
-  userid: Yup.string().required(),
+  name: Yup.string().required().min(3).max(15),
+  password: Yup.string().required().min(6).max(15),
+  userid: Yup.string().required().min(3).max(15),
 });
 
 export default function Register() {
@@ -32,8 +32,6 @@ export default function Register() {
     validationSchema: registerSchema,
     onSubmit: (values) => {
       console.log(values);
-
-      alert(JSON.stringify(values, null, 2));
     },
   });
 

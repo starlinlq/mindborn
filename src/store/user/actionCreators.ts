@@ -11,12 +11,8 @@ export function loginUser({
   userid,
   password,
 }: LoginUser): ThunkAction<Promise<void>, {}, {}, AnyAction> {
-  return async (
-    dispatch: ThunkDispatch<{}, {}, AnyAction>,
-    getState
-  ): Promise<void> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     dispatch({ type: actionTypes.LOADING, payload: {} });
-    let state = getState() as RootState;
 
     try {
       const { user, token } = await agent.user.login({

@@ -70,7 +70,8 @@ function NavBar() {
                             <VscHome /> <To href="/">Home</To>
                           </RowCenter>
                           <RowCenter>
-                            <CgProfile /> <To href="/profile">Profile</To>
+                            <CgProfile />{" "}
+                            <To href={`/profile/${user.id}`}>Profile</To>
                           </RowCenter>
                           <RowCenter>
                             <VscAccount /> <To href="/account">Account</To>

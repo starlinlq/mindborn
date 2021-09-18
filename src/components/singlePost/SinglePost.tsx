@@ -43,9 +43,12 @@ export default function SinglePost() {
       <Wrapper width="100%" flex="flex" align="center" content="space-between">
         <AuthorWrapper>
           <Photo src="https://phlearn.com/wp-content/uploads/2020/08/soft-light-coloring-photoshop-banner-after.jpg" />
-          <Author onClick={() => handleClick(singlePost.createdBy._id)}>
-            {singlePost.createdBy.username}
-          </Author>
+          <a
+            style={{ textDecoration: "none" }}
+            href={`/profile/${singlePost.createdBy._id}`}
+          >
+            <Author>{singlePost.createdBy.username}</Author>
+          </a>
         </AuthorWrapper>
         <BookmarkPost
           createdBy={singlePost.createdBy._id}

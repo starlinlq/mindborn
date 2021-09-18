@@ -19,7 +19,6 @@ export default function Bookmark() {
   useEffect(() => {
     const get = async () => {
       const { data } = await agent.post.getBookmarks();
-      console.log(data);
       setState(data);
     };
     get();

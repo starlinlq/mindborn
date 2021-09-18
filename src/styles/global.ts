@@ -5,9 +5,11 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    
 }
 
 body{
+ 
     background-color: ${({ theme }) => theme.background};
 }
 `;
@@ -62,6 +64,7 @@ export const Button = styled.button<ButtonTypes>`
 
   &:hover {
     border-color: #04009a;
+    background-color: blue;
   }
 `;
 
@@ -97,7 +100,6 @@ export const Input = styled.input<InputTypes>`
   border: 1px solid transparent;
   background-color: white;
   border-color: ${({ borderColor }) => borderColor};
-
   width: 100%;
   padding: 15px 5px;
   border-radius: 10px;

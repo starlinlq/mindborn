@@ -20,7 +20,7 @@ export const Like = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  z-index: 999;
+  z-index: 1;
 
   &:hover {
     color: red;

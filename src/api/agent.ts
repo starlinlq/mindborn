@@ -22,7 +22,11 @@ const requests = {
 const user = {
   login: (data: Login) =>
     requests.post<{
-      user: { username: string; photourl: string; id: string };
+      user: {
+        username: string;
+        photourl: string;
+        id: string;
+      };
       token: string;
     }>("/auth/login", data),
   validate: (token: string) =>
@@ -50,6 +54,10 @@ const user = {
         following_id: { _id: string; username: string; photourl: string };
       }[];
     }>(`user/following/${id}`),
+  updatePassword: (data: { currentPassword: string; newPassword: string }) =>
+    requests.post("auth/update/password", data),
+  updateId: (data: { newId: string; currentPassword: string }) =>
+    requests.post("auth/update/id", data),
 };
 const post = {
   create: (data: { title: string; description: string; category: string }) =>
