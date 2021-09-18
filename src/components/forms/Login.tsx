@@ -94,14 +94,7 @@ export default function Login() {
               }
             />
           </InputWrapper>
-          <Button
-            type="submit"
-            margin=""
-            main
-            padding="10px"
-            width="100%"
-            disabled={formik.isSubmitting}
-          >
+          <Button type="submit" margin="" main padding="10px" width="100%">
             SIGN IN
           </Button>
         </Form>

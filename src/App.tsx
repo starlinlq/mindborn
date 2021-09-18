@@ -16,6 +16,7 @@ import Home from "./layout/Home";
 import { Submit } from "./layout/Submit";
 import Post from "./layout/Post";
 import Profile from "./layout/Profile";
+import Bookmark from "./layout/bookmark";
 
 export const history = createBrowserHistory();
 
@@ -52,6 +53,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile/:id" component={Profile} />
             <Route exact path="/" component={Home} />
+            <Route exact path="/bookmark" component={Bookmark} />
             <Route exact path="/post/:id" component={Post} />
           </Switch>
         </Container>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import agent from "../../api/agent";
 import { Profile } from "../../store/user/userTypes";
@@ -32,22 +32,27 @@ export default function ProfileCard() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [selected, setSelected] = useState("following");
   const [displayInfo, setDisplayInfo] = useState(false);
+  const followRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(function () {
-    async function get() {
-      let { profile, followers, following, followersIds } =
-        await agent.user.getProfile(id);
+  useEffect(
+    function () {
+      async function get() {
+        let { profile, followers, following, followersIds } =
+          await agent.user.getProfile(id);
 
-      let found = followersIds.find((match) => match.follower_id === user.id);
-      if (found) {
-        setIsFollowing(true);
+        let found = followersIds.find((match) => match.follower_id === user.id);
+        if (found) {
+          setIsFollowing(true);
+        }
+        setProfile({ ...profile, followers, following });
       }
-      setProfile({ ...profile, followers, following });
-    }
-    get();
-  }, []);
+      get();
+    },
+    [id]
+  );
 
   const handleDisplayInfo = (name: string) => {
+    setSelected(name);
     setDisplayInfo(true);
   };
 
@@ -62,6 +67,17 @@ export default function ProfileCard() {
       setIsFollowing(false);
     } catch (error: any) {
       toast.error(error.message);
+    }
+  };
+
+  const handleMouseOver = () => {
+    if (followRef && followRef.current && isFollowing) {
+      followRef.current.innerText = "Unfollow";
+    }
+  };
+  const handleMouseLeave = () => {
+    if (followRef && followRef.current && isFollowing) {
+      followRef.current.innerText = "Following";
     }
   };
 
@@ -87,7 +103,9 @@ export default function ProfileCard() {
           <Name>{profile.name}</Name>
           <Wrapper width="100%" flex="flex" content="space-between">
             <Wrapper width="fit-content" style={{ textAlign: "center" }}>
-              <Followers>{profile.followers}</Followers>
+              <Followers onClick={() => handleDisplayInfo("followers")}>
+                {profile.followers}
+              </Followers>
               <Span>Followers</Span>
             </Wrapper>
             <Wrapper width="fit-content" style={{ textAlign: "center" }}>
@@ -113,6 +131,9 @@ export default function ProfileCard() {
           <Wrapper width="100%">
             {user.id !== id && (
               <Button
+                ref={followRef}
+                onMouseOver={handleMouseOver}
+                onMouseLeave={handleMouseLeave}
                 width="100%"
                 main
                 padding="6px"

@@ -38,6 +38,12 @@ const user = {
     }>(`/user/${id}`),
   follow: (id: string) => requests.post(`/user/follow/${id}`),
   unFollow: (id: string) => requests.delete(`/user/follow/${id}`),
+  getFollowers: (id: string) =>
+    requests.get<{
+      data: {
+        following_id: { _id: string; username: string; photourl: string };
+      }[];
+    }>(`user/followers/${id}`),
   getFollowing: (id: string) =>
     requests.get<{
       data: {
@@ -62,8 +68,15 @@ const post = {
   like: (id: string) => requests.post(`/post/upvote/${id}`),
   dislike: (id: string) => requests.delete(`/post/upvote/${id}`),
   bookmark: (postId: string, createdBy: string) =>
-    requests.post(`bookmark`, { postId, createdBy }),
-  unBookmark: (id: string) => requests.delete(`bookmark/${id}`),
+    requests.post(`/bookmark`, { postId, createdBy }),
+  unBookmark: (id: string) => requests.delete(`/bookmark/${id}`),
+  getBookmarks: () =>
+    requests.get<{
+      data: {
+        postId: SinglePost;
+        createdBy: { photourl: string; _id: string; username: string };
+      }[];
+    }>(`/bookmark`, headers),
 };
 
 const comment = {

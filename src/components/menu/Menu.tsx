@@ -36,7 +36,7 @@ export default function Menu() {
       <List width="100%" flex="flex" align="center">
         <FiBookmark style={{ color: "gray" }} />
         <Title
-          active={history.location.pathname === "/profile" ? true : false}
+          active={history.location.pathname === "/bookmark" ? true : false}
           href="/bookmark"
         >
           Bookmark

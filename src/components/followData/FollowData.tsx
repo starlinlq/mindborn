@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { toast } from "react-toastify";
 import agent from "../../api/agent";
 import { history } from "../../App";
 import { Wrapper } from "../../styles/global";
@@ -15,10 +16,20 @@ export default function FollowData({ name, id, setDisplay }: Props) {
   useEffect(function () {
     async function get() {
       try {
-        let { data } = await agent.user.getFollowing(id);
+        if (name === "following") {
+          let { data } = await agent.user.getFollowing(id);
+          console.log(data);
+          setState(data);
+          return;
+        }
+        let { data } = await agent.user.getFollowers(id);
         console.log(data);
+
         setState(data);
-      } catch (error) {}
+        return;
+      } catch (error: any) {
+        toast.error(error.message);
+      }
     }
     get();
   }, []);
@@ -42,6 +53,26 @@ export default function FollowData({ name, id, setDisplay }: Props) {
       </Wrapper>
       <Wrapper width="100%">
         {state &&
+          name === "followers" &&
+          state.map((user: any) => (
+            <Wrapper
+              onClick={() => handleClick(user.follower_id._id)}
+              style={{
+                cursor: "pointer",
+                border: "1px solid grey",
+                margin: "10px 0",
+              }}
+              width="100%"
+              key={user.follower_id._id}
+              flex="flex"
+              align="center"
+            >
+              <Photo src={`${user.follower_id.photourl}`} />
+              <Name>{user.follower_id.username}</Name>
+            </Wrapper>
+          ))}
+        {state &&
+          name === "following" &&
           state.map((user: any) => (
             <Wrapper
               onClick={() => handleClick(user.following_id._id)}
