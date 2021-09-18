@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Comment, Reply, SinglePost } from "../store/post/postTypes";
+import { Profile } from "../store/user/userTypes";
 axios.defaults.baseURL = "http://localhost:3000/api/v1";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
@@ -28,6 +29,21 @@ const user = {
     requests.get("auth/validate", {
       headers: { Authorization: token },
     }),
+  getProfile: (id: string) =>
+    requests.get<{
+      profile: Profile;
+      followers: number;
+      following: number;
+      followersIds: { follower_id: string }[];
+    }>(`/user/${id}`),
+  follow: (id: string) => requests.post(`/user/follow/${id}`),
+  unFollow: (id: string) => requests.delete(`/user/follow/${id}`),
+  getFollowing: (id: string) =>
+    requests.get<{
+      data: {
+        following_id: { _id: string; username: string; photourl: string };
+      }[];
+    }>(`user/following/${id}`),
 };
 const post = {
   create: (data: { title: string; description: string; category: string }) =>
@@ -38,9 +54,9 @@ const post = {
       comments: Comment[];
       commentsCount: number;
     }>(`/post/${id}`),
-  getPosts: (url: string, filter: string, category: string, date?: string) =>
-    requests.get<{ posts: SinglePost[] }>(
-      `${url}/?filterBy=${filter}&category=${category}`,
+  getPosts: (url: string, filter: string, category: string, limit: number) =>
+    requests.get<{ length: number; posts: SinglePost[] }>(
+      `${url}&filterBy=${filter}&category=${category}&limit=${limit}`,
       headers
     ),
   like: (id: string) => requests.post(`/post/upvote/${id}`),

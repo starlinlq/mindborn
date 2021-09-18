@@ -1,10 +1,13 @@
-import Create from "../components/create/Create";
+import { history } from "../App";
 import Menu from "../components/menu/Menu";
 import SinglePost from "../components/singlePost/SinglePost";
 import { Submit, Wrapper } from "../styles/global";
 import { LayoutWrapper } from "./layout.styles";
 
 export default function Post() {
+  const handleClick = () => {
+    history.push("/submit");
+  };
   return (
     <LayoutWrapper>
       <Menu />
@@ -12,6 +15,7 @@ export default function Post() {
         <SinglePost />
       </Wrapper>
       <Submit
+        onClick={handleClick}
         main
         type="button"
         width="200px"

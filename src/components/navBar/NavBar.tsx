@@ -60,7 +60,7 @@ function NavBar() {
                 onMouseEnter={handleActiveEnter}
                 onMouseLeave={handleActiveLeave}
               >
-                <Img src="https://phlearn.com/wp-content/uploads/2020/08/soft-light-coloring-photoshop-banner-after.jpg" />
+                <Img src={`${user.photourl}`} />
                 {display && (
                   <>
                     <DetailsWrapper>

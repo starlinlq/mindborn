@@ -1,4 +1,3 @@
-import { Dispatch } from "react";
 import { InputWrapper, Input, Button } from "../../styles/global";
 import {
   CreateWrapper,
@@ -9,8 +8,8 @@ import {
 } from "./create.style";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { createPost } from "../../store/post/actionCreators";
+import agent from "../../api/agent";
+import { history } from "../../App";
 
 const createSchema = Yup.object().shape({
   category: Yup.string().required(),
@@ -22,9 +21,12 @@ const createSchema = Yup.object().shape({
 });
 
 export default function Create() {
-  const dispatch: Dispatch<any> = useDispatch();
-  const handleForm = (values: any) => {
-    dispatch(createPost(values));
+  const handleForm = async (values: any) => {
+    let { id } = await agent.post.create(values);
+
+    if (id) {
+      history.push(`/post/${id}`);
+    }
   };
   const formik = useFormik({
     initialValues: {
@@ -35,6 +37,10 @@ export default function Create() {
     validationSchema: createSchema,
     onSubmit: handleForm,
   });
+
+  const handlRedirect = () => {
+    history.push("/");
+  };
   return (
     <CreateWrapper>
       <Form onSubmit={formik.handleSubmit}>
@@ -73,6 +79,7 @@ export default function Create() {
           value={formik.values.description}
         />
         <Button
+          onClick={handlRedirect}
           type="button"
           width="100px"
           margin="15px 0"

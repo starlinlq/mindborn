@@ -9,7 +9,6 @@ import {
   Topic,
 } from "../post/post.styles";
 import { IoChatboxOutline } from "react-icons/io5";
-import { FiBookmark } from "react-icons/fi";
 import { SinglePostWrapper, Description } from "./singlePost.styles";
 import { Dispatch, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

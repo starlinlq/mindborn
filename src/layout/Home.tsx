@@ -16,7 +16,7 @@ export default function Home({ children }: Props) {
     <LayoutWrapper>
       <Menu />
       <Wrapper width="60%">
-        <DisplayPost url="/post" />
+        <DisplayPost url="/post/?" />
       </Wrapper>
       <Wrapper width="200px">
         <Submit

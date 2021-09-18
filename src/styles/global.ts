@@ -61,9 +61,7 @@ export const Button = styled.button<ButtonTypes>`
   height: ${({ height }) => height};
 
   &:hover {
-    border-color: black;
-    background-color: transparent;
-    color: blue;
+    border-color: #04009a;
   }
 `;
 

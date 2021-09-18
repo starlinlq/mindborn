@@ -15,6 +15,7 @@ export const NavWrapper = styled(BottomShadow)`
   background-color: ${({ theme }) => theme.main};
   position: fixed;
   top: 0;
+  z-index: 999;
 `;
 
 export const Img = styled.img`

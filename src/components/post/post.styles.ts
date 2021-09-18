@@ -6,7 +6,7 @@ export const PostWrapper = styled.div`
   width: 100%;
   border-radius: 5px;
   padding: 15px;
-  cursor: pointer;
+
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 15px;
   }

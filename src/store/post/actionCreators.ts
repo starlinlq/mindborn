@@ -19,10 +19,6 @@ export function createPost(
     getState
   ): Promise<void> => {
     try {
-      let id = await agent.post.create(data);
-
-      // let data = await agent.user.validate();
-      // dispatch({ type: actionTypes.VALIDATE_TOKEN, payload: data });
     } catch (error: any) {
       toast.error(error.message);
     }

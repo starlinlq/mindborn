@@ -2,21 +2,27 @@ import { FilterWrapper, Selected, Type } from "./filter.styles";
 import { FaPepperHot } from "react-icons/fa";
 import { BsGem } from "react-icons/bs";
 import { ImShift } from "react-icons/im";
-import { Dispatch, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { BiDonateHeart } from "react-icons/bi";
+import { RootState } from "../../store/store";
 
 type Props = {
   setFilter: Function;
 };
 export default function Filter({ setFilter }: Props) {
   const [selected, setSelected] = useState("-commentCount");
-  const dipatch = useDispatch<Dispatch<any>>();
+  const { category } = useSelector((state: RootState) => state.post);
 
   const handleFilter = (s: string) => {
     setFilter(s);
     setSelected(s);
   };
+
+  useEffect(() => {
+    setSelected("-commentCount");
+    setFilter("-commentCount");
+  }, [category]);
   return (
     <FilterWrapper>
       <Selected

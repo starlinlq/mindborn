@@ -18,9 +18,9 @@ export const Like = styled.div`
   border-radius: 10px;
   padding: 2px 5px;
   cursor: pointer;
-
   display: flex;
   align-items: center;
+  z-index: 999;
 
   &:hover {
     color: red;
