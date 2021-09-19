@@ -34,6 +34,8 @@ const userReducer = (state = initalState, action: UserAction) => {
       };
     case actionType.UPDATE_ID:
       return { ...state, username: action.payload.username };
+    case actionType.UPDATE_PHOTO:
+      return { ...state, photourl: action.payload.photourl };
 
     default:
       return state;

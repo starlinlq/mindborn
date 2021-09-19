@@ -18,6 +18,7 @@ import Post from "./layout/Post";
 import Profile from "./layout/Profile";
 import Bookmark from "./layout/bookmark";
 import Settings from "./layout/Settings";
+import SearchPage from "./layout/SearchPage";
 
 export const history = createBrowserHistory();
 
@@ -57,6 +58,7 @@ function App() {
             <Route exact path="/bookmark" component={Bookmark} />
             <Route exact path="/post/:id" component={Post} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/search" component={SearchPage} />
           </Switch>
         </Container>
       </ThemeProvider>

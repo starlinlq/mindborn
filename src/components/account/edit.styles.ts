@@ -6,6 +6,7 @@ export const EditAccountContainer = styled.div`
 `;
 export const EditProfileContainer = styled.div`
   padding: 15px;
+  height: "fit-content";
 `;
 
 export const Form = styled.form`
@@ -33,4 +34,14 @@ export const Div = styled.div`
   border: 1px solid grey;
   border-radius: 10px;
   margin: 10px 0;
+`;
+
+export const Img = styled.img`
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  cursor: pointer;
 `;

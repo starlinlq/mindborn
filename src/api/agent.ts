@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { request } from "http";
 import { toast } from "react-toastify";
 import { Comment, Reply, SinglePost } from "../store/post/postTypes";
 import { Profile } from "../store/user/userTypes";
@@ -58,6 +59,17 @@ const user = {
     requests.post("auth/update/password", data),
   updateId: (data: { newId: string; currentPassword: string }) =>
     requests.post("auth/update/id", data),
+  upload: (data: any) => requests.post<{ url: string }>("/upload", data),
+  updateProfile: (data: {
+    bio: string;
+    name: string;
+    location: string;
+    photourl: string;
+  }) => requests.patch("/user", data),
+  searchProfile: (q: string | any) =>
+    requests.get<{ username: string; photourl: string; _id: string }[]>(
+      `/auth/?q=${q}`
+    ),
 };
 const post = {
   create: (data: { title: string; description: string; category: string }) =>
@@ -85,6 +97,7 @@ const post = {
         createdBy: { photourl: string; _id: string; username: string };
       }[];
     }>(`/bookmark`, headers),
+  delete: (id: string) => requests.delete(`/post/${id}`),
 };
 
 const comment = {

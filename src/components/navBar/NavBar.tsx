@@ -7,7 +7,7 @@ import {
   Details,
   DetailsWrapper,
 } from "./nav.styles";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Wrapper,
   Container,
@@ -20,7 +20,7 @@ import {
 import { GiAnubis } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { VscAccount, VscHome, VscSettingsGear } from "react-icons/vsc";
+import { VscAccount, VscHome } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
 import { IoNotificationsOutline } from "react-icons/io5";
 import SearchBar from "../searchbar/Search";
@@ -47,9 +47,11 @@ function NavBar() {
               <Brand>Spacepark</Brand>
             </Link>
           </Wrapper>
+          <Wrapper width="fit-content">
+            <SearchBar />
+          </Wrapper>
 
           <Wrapper flex="flex" align="center" width="fit-content">
-            <SearchBar />
             {user.isAuth && (
               <IoNotificationsOutline
                 style={{ color: "grey", fontSize: "20px", marginRight: "20px" }}
