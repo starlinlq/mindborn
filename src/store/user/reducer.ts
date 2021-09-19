@@ -7,6 +7,7 @@ const initalState: User = {
   isAuth: false,
   photourl: "",
   loading: false,
+  token: "",
 };
 
 const userReducer = (state = initalState, action: UserAction) => {
@@ -20,6 +21,16 @@ const userReducer = (state = initalState, action: UserAction) => {
         id: action.payload.id,
         photourl: action.payload.photourl,
       };
+    case actionType.REGISTER: {
+      return {
+        ...state,
+        isAuth: true,
+        username: action.payload.username,
+        photourl: action.payload.photourl,
+        id: action.payload.id,
+        loading: false,
+      };
+    }
     case actionType.LOADING:
       return { ...state, loading: !state.loading };
     case actionType.LOG_IN:

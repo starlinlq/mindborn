@@ -13,25 +13,29 @@ import {
 } from "../../styles/global";
 import { FaUserLock, FaUserTie } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import { registerUser } from "../../store/user/actionCreators";
 
 const registerSchema = Yup.object().shape({
   email: Yup.string().email().required(),
   name: Yup.string().required().min(3).max(15),
   password: Yup.string().required().min(6).max(15),
-  userid: Yup.string().required().min(3).max(15),
+  username: Yup.string().required().min(3).max(15),
 });
 
 export default function Register() {
+  const dispatch = useDispatch<Dispatch<any>>();
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      userid: "",
+      username: "",
       name: "",
     },
     validationSchema: registerSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values, { resetForm }) => {
+      dispatch(registerUser(values));
     },
   });
 
@@ -51,14 +55,16 @@ export default function Register() {
             <FaUserLock />
           </IconWrapper>
           <Input
-            name="userid"
+            name="username"
             type="text"
-            placeholder="ID - must be unique"
-            value={formik.values.userid}
+            placeholder="USER ID - must be unique"
+            value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             borderColor={
-              formik.errors.userid && formik.touched.userid ? "red" : "#eff6ff"
+              formik.errors.username && formik.touched.username
+                ? "red"
+                : "#eff6ff"
             }
           />
         </InputWrapper>

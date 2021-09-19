@@ -4,6 +4,7 @@ export type User = {
   photourl: string;
   isAuth: boolean;
   loading: boolean;
+  token: string;
 };
 
 export type UserAction = {

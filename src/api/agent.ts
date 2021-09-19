@@ -30,6 +30,12 @@ const user = {
       };
       token: string;
     }>("/auth/login", data),
+  register: (data: {
+    email: string;
+    password: string;
+    username: string;
+    name: string;
+  }) => requests.post<any>("/auth/register", data),
   validate: (token: string) =>
     requests.get("auth/validate", {
       headers: { Authorization: token },

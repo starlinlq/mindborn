@@ -43,7 +43,22 @@ export default function Bookmark() {
             bookmarkIds={postId.bookmarkIds}
           />
         ))}
+        {state.length === 0 && (
+          <Wrapper
+            width="100%"
+            style={{
+              textAlign: "center",
+              boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
+              backgroundColor: "white",
+              height: "266px",
+              borderRadius: "10px",
+            }}
+          >
+            <h3 style={{ paddingTop: "10px" }}>You have no bookmarks</h3>
+          </Wrapper>
+        )}
       </Wrapper>
+
       <Wrapper width="200px">
         <CategoryList />
       </Wrapper>

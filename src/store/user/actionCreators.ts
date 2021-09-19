@@ -30,6 +30,30 @@ export function loginUser({
   };
 }
 
+export function registerUser(data: {
+  username: string;
+  name: string;
+  email: string;
+  password: string;
+}): ThunkAction<Promise<void>, {}, {}, AnyAction> {
+  return async (
+    dispatch: ThunkDispatch<{}, {}, AnyAction>,
+    getState
+  ): Promise<void> => {
+    try {
+      dispatch({ type: actionTypes.LOADING });
+      let register = await agent.user.register(data);
+      localStorage.setItem("Authorization", `Bearer ${register.token}`);
+
+      dispatch({ type: actionTypes.REGISTER, payload: register });
+      history.push("/");
+    } catch (error: any) {
+      dispatch({ type: actionTypes.LOADING });
+      toast.error(error);
+    }
+  };
+}
+
 export function validateUser(
   token: string
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> {
@@ -39,6 +63,7 @@ export function validateUser(
   ): Promise<void> => {
     try {
       let data = await agent.user.validate(token);
+
       dispatch({ type: actionTypes.VALIDATE_TOKEN, payload: data });
     } catch (error: any) {
       localStorage.removeItem("Authorization");
