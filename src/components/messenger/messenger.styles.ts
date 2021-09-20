@@ -16,17 +16,21 @@ const BoxShadow = styled.div`
 `;
 export const Online = styled(BoxShadow)`
   padding: 10px;
+  margin: 10px 0;
+  height: 220px;
+  width: 205px;
+  overflow: auto;
 `;
 export const ChatBox = styled(BoxShadow)`
-  width: 55%;
-  padding: 10px;
+  padding: 25px;
+  width: 76%;
   display: flex;
   flex-direction: column;
 `;
 export const ConversationContainer = styled(BoxShadow)`
   padding: 10px;
-  width: 20%;
-  height: fit-content;
+  overflow: auto;
+  height: 220px;
 `;
 export const SearchFriends = styled.input``;
 export const Photo = styled.img`
@@ -41,7 +45,8 @@ export const Name = styled.p`
 export const Text = styled.p`
   background-color: #01b1f7;
   border-radius: 10px;
-  width: 300px;
+  max-width: 300px;
+  height: fit-content;
   color: white;
   padding: 10px;
   margin-left: 8px;
@@ -61,11 +66,14 @@ export const MessageContainer = styled.div<Props>`
 
 export const WriteMessage = styled.textarea`
   margin: 10px 0;
+  padding: 10px;
   width: 100%;
   margin-right: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
 `;
 export const MessagesWrapper = styled.div`
-  height: 400px;
+  height: 300px;
   overflow: auto;
 `;
 

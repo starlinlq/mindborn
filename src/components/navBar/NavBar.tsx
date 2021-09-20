@@ -62,7 +62,7 @@ function NavBar() {
                 onMouseEnter={handleActiveEnter}
                 onMouseLeave={handleActiveLeave}
               >
-                <Img src={`${user.photourl}`} />
+                <Img src={user.photourl} />
                 {display && (
                   <>
                     <DetailsWrapper>

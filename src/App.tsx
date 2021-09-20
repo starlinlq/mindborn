@@ -60,7 +60,7 @@ function App() {
             <Route exact path="/post/:id" component={Post} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/search" component={SearchPage} />
-            <Route exact path="/messenger" component={Chat} />
+            <Route exact path="/messages" component={Chat} />
           </Switch>
         </Container>
       </ThemeProvider>

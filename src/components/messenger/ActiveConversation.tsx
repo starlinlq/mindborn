@@ -11,8 +11,6 @@ const ActiveConversation = ({ c }: any) => {
     useState<{ username: string; photourl: string; _id: string }>();
   const { id } = useSelector((state: RootState) => state.user);
 
-  console.log(c);
-
   useEffect(() => {
     const friendId = c.members.filter((match: any) => match !== id);
     async function get() {
@@ -24,7 +22,7 @@ const ActiveConversation = ({ c }: any) => {
       }
     }
     get();
-  }, []);
+  }, [c, id]);
 
   return (
     <>
@@ -33,7 +31,7 @@ const ActiveConversation = ({ c }: any) => {
           width="fit-content"
           flex="flex"
           align="center"
-          style={{ margin: "10px 0" }}
+          style={{ margin: "10px 0", width: "100%" }}
         >
           <Photo src={user.photourl} />
           <Name>{user.username}</Name>

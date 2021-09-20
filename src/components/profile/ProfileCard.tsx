@@ -131,6 +131,7 @@ export default function ProfileCard() {
           <Wrapper width="100%">
             {user.id !== id && (
               <Button
+                type="button"
                 ref={followRef}
                 onMouseOver={handleMouseOver}
                 onMouseLeave={handleMouseLeave}
@@ -143,6 +144,16 @@ export default function ProfileCard() {
                 {isFollowing ? "Following" : "Follow"}
               </Button>
             )}
+            <Button
+              style={{ marginTop: "5px" }}
+              type="button"
+              width="100%"
+              padding="6px"
+              margin="0"
+              onClick={() => history.push(`/messages?id=${id}`)}
+            >
+              Message
+            </Button>
           </Wrapper>
         </>
       )}

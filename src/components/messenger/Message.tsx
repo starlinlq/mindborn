@@ -1,22 +1,35 @@
 import React from "react";
 import { Wrapper } from "../../styles/global";
 import { Lastseen, MessageContainer, Photo, Text } from "./messenger.styles";
+import { format } from "timeago.js";
 type Props = {
   own?: boolean;
+  conversationId: string;
+  sender: { username: string; photourl: string; _id: string };
+  text: string;
+  _id: string;
+  createdAt: string;
 };
-const Message = ({ own }: Props) => {
+const Message = ({ own, text, sender, createdAt }: Props) => {
   return (
     <MessageContainer own={own}>
       <Wrapper width="fit-content">
         <div style={{ display: "flex" }}>
-          <Photo src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" />
-          <Text>
-            is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the
-            1500s, when an unknown
-          </Text>
+          {own ? (
+            <>
+              <Text style={{ backgroundColor: "#E1E5EA", color: "black" }}>
+                {text}
+              </Text>
+              <Photo src={sender.photourl} style={{ margin: "0 10px" }} />
+            </>
+          ) : (
+            <>
+              <Photo src={sender.photourl} />
+              <Text>{text}</Text>
+            </>
+          )}
         </div>
-        <Lastseen>1 hour ago</Lastseen>
+        <Lastseen>{format(createdAt)}</Lastseen>
       </Wrapper>
     </MessageContainer>
   );

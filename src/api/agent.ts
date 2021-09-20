@@ -82,6 +82,37 @@ const user = {
       `/auth/${id}`
     ),
 };
+
+const chat = {
+  getMessages: (id: any) =>
+    requests.get<
+      {
+        conversationId: string;
+        sender: { username: string; photourl: string; _id: string };
+        text: string;
+        _id: string;
+        createdAt: string;
+      }[]
+    >(`/messages/${id}`),
+  sendMessage: (data: {
+    conversationId: string;
+    sender: string;
+    text: string;
+  }) =>
+    requests.post<{
+      conversationId: string;
+      sender: "";
+      text: string;
+      _id: string;
+      createdAt: string;
+    }>("/messages", data),
+  getConversation: (firstuser: string, seconduser: string) =>
+    requests.get(
+      `/conversation/?firstuser=${firstuser}&seconduser=${seconduser}`
+    ),
+  makeConversation: (data: { senderId: string; recieverId: string | any }) =>
+    requests.post(`/conversation/`, data),
+};
 const post = {
   create: (data: { title: string; description: string; category: string }) =>
     requests.post<{ id: string }>("/post", data),
@@ -160,5 +191,5 @@ axios.interceptors.response.use(
   }
 );
 
-const agent = { user, post, features, comment };
+const agent = { user, post, features, comment, chat };
 export default agent;

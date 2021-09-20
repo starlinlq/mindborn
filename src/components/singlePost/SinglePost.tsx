@@ -37,12 +37,13 @@ export default function SinglePost() {
   const handleClick = (id: string) => {
     history.push(`profile/${id}`);
   };
+  console.log(singlePost.createdBy);
 
   return (
     <SinglePostWrapper>
       <Wrapper width="100%" flex="flex" align="center" content="space-between">
         <AuthorWrapper>
-          <Photo src="https://phlearn.com/wp-content/uploads/2020/08/soft-light-coloring-photoshop-banner-after.jpg" />
+          <Photo src={singlePost.createdBy.photourl} />
           <a
             style={{ textDecoration: "none" }}
             href={`/profile/${singlePost.createdBy._id}`}

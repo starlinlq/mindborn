@@ -37,7 +37,7 @@ export default function Post({
     <PostWrapper>
       <Wrapper width="100%" flex="flex" align="center" content="space-between">
         <AuthorWrapper>
-          <Photo src={`${createdBy.photourl}`} />
+          <Photo src={createdBy.photourl} />
           <Author onClick={() => handleClick(createdBy._id)}>
             {createdBy.username}
           </Author>
