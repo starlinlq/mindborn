@@ -76,6 +76,11 @@ const user = {
     requests.get<{ username: string; photourl: string; _id: string }[]>(
       `/auth/?q=${q}`
     ),
+  getConversations: (id: string) => requests.get<any>(`/conversation/${id}`),
+  getUser: (id: string) =>
+    requests.get<{ username: string; photourl: string; _id: string }>(
+      `/auth/${id}`
+    ),
 };
 const post = {
   create: (data: { title: string; description: string; category: string }) =>

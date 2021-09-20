@@ -19,6 +19,7 @@ import Profile from "./layout/Profile";
 import Bookmark from "./layout/bookmark";
 import Settings from "./layout/Settings";
 import SearchPage from "./layout/SearchPage";
+import Chat from "./layout/Chat";
 
 export const history = createBrowserHistory();
 
@@ -59,6 +60,7 @@ function App() {
             <Route exact path="/post/:id" component={Post} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/messenger" component={Chat} />
           </Switch>
         </Container>
       </ThemeProvider>
