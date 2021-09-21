@@ -7,6 +7,12 @@ export const MessengerContainer = styled.div`
 
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    margin: 0;
+    justify-content: initial;
+  }
 `;
 
 const BoxShadow = styled.div`
@@ -20,12 +26,21 @@ export const Online = styled(BoxShadow)`
   height: 220px;
   width: 205px;
   overflow: auto;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 export const ChatBox = styled(BoxShadow)`
   padding: 25px;
   width: 76%;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin: 10px 0;
+  }
 `;
 export const ConversationContainer = styled(BoxShadow)`
   padding: 10px;
@@ -34,9 +49,11 @@ export const ConversationContainer = styled(BoxShadow)`
 `;
 export const SearchFriends = styled.input``;
 export const Photo = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 `;
 export const Name = styled.p`
   margin-left: 10px;

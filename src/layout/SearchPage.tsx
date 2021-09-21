@@ -12,6 +12,20 @@ export default function SearchPage() {
   const location = useLocation();
   const { q } = queryString.parse(location.search);
 
+  if (window.innerWidth < 700) {
+    return (
+      <LayoutWrapper>
+        <Wrapper width="60%">
+          <DisplayUserSearch />
+          <Wrapper width="200px">
+            <CategoryList />
+          </Wrapper>
+          <DisplayPost url={`/post/?q=${q}`} />
+        </Wrapper>
+      </LayoutWrapper>
+    );
+  }
+
   return (
     <LayoutWrapper>
       <Menu />

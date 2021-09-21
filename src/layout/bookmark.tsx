@@ -1,8 +1,6 @@
 import { LayoutWrapper } from "./layout.styles";
 import { Wrapper } from "../styles/global";
-import CategoryList from "../components/categoryList/CategoryList";
 import Menu from "../components/menu/Menu";
-
 import { useEffect, useState } from "react";
 import agent from "../api/agent";
 import Post from "../components/post/Post";
@@ -28,7 +26,18 @@ export default function Bookmark() {
   return (
     <LayoutWrapper>
       <Menu />
-      <Wrapper width="60%">
+      <Wrapper width="80%">
+        <h4
+          style={{
+            boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+            width: "100%",
+            backgroundColor: "white",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          BOOKMARKED
+        </h4>
         {state.map(({ createdBy, postId }) => {
           if (postId) {
             return (
@@ -62,10 +71,6 @@ export default function Bookmark() {
             <h3 style={{ paddingTop: "10px" }}>You have no bookmarks</h3>
           </Wrapper>
         )}
-      </Wrapper>
-
-      <Wrapper width="200px">
-        <CategoryList />
       </Wrapper>
     </LayoutWrapper>
   );

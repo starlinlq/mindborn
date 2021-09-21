@@ -23,7 +23,8 @@ export function loginUser({
       localStorage.setItem("Authorization", `Bearer ${token}`);
 
       dispatch({ type: actionTypes.LOG_IN, payload: user });
-      history.push("/");
+
+      history.push("/home");
     } catch (error) {
       dispatch({ type: actionTypes.LOADING, payload: {} });
     }
@@ -46,7 +47,7 @@ export function registerUser(data: {
       localStorage.setItem("Authorization", `Bearer ${register.token}`);
 
       dispatch({ type: actionTypes.REGISTER, payload: register });
-      history.push("/");
+      history.push("/home");
     } catch (error: any) {
       dispatch({ type: actionTypes.LOADING });
       toast.error(error);

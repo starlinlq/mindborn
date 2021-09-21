@@ -35,7 +35,6 @@ export function getSinglePost(
     try {
       dispatch({ type: actionTypes.LOADING, payload: {} });
       let data = await agent.post.getSinglePost(id);
-      console.log(data, "singlepost");
 
       dispatch({
         type: actionTypes.GET_SINGLE,

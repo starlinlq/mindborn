@@ -7,6 +7,7 @@ export type User = {
   token: string;
   notifications: NotificationType[];
   notifications_read: boolean;
+  stateLoading: boolean;
 };
 
 export type UserAction = {

@@ -53,6 +53,14 @@ export default function Create() {
           <Option value="opinion">Opinion</Option>
           <Option value="descussion">Discusion</Option>
           <Option value="life">Life</Option>
+          <Option value="life">Games</Option>
+          <Option value="life">Opinion</Option>
+          <Option value="life">Technology</Option>
+          <Option value="life">Health</Option>
+          <Option value="life">Workplace</Option>
+          <Option value="life">Education</Option>
+          <Option value="life">Relationship</Option>
+          <Option value="life">Income</Option>
         </Category>
 
         <InputWrapper>

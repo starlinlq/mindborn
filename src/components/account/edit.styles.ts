@@ -3,6 +3,10 @@ export const EditAccountContainer = styled.div`
   width: 50%;
   position: relative;
   padding: 15px;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 export const EditProfileContainer = styled.div`
   padding: 15px;

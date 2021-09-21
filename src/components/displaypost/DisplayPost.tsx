@@ -31,7 +31,6 @@ export default function DisplayPost({ url }: Props) {
     setLoading(true);
     const get = async () => {
       let data = await agent.post.getPosts(url, filter, category, limit);
-      console.log(data);
 
       if (data.posts.length === 0) {
         setHasMore(false);

@@ -3,6 +3,7 @@ import {
   Author,
   AuthorWrapper,
   Comments,
+  CreatedDate,
   Description,
   Photo,
   PostWrapper,
@@ -14,6 +15,7 @@ import { SinglePost } from "../../store/post/postTypes";
 import BookmarkPost from "../bookmarkPost/BookmarkPost";
 import { history } from "../../App";
 import LikeCount from "../likeCount/LikeCount";
+import { format } from "timeago.js";
 
 export default function Post({
   title,
@@ -41,6 +43,7 @@ export default function Post({
           <Author onClick={() => handleClick(createdBy._id)}>
             {createdBy.username}
           </Author>
+          <CreatedDate>{format(createdAt)}</CreatedDate>
         </AuthorWrapper>
         <BookmarkPost
           postId={_id}

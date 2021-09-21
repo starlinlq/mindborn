@@ -9,6 +9,16 @@ export const FilterWrapper = styled.div`
   padding-left: 10px;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.main};
+
+  @media screen and (max-width: 1200px) {
+    width: 92%;
+    margin: 0 20px;
+    padding-left: 10px;
+  }
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 export const Type = styled.span`

@@ -1,4 +1,3 @@
-import React from "react";
 import { Section } from "./form.styles";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,10 +14,8 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { loginUser } from "../../store/user/actionCreators";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-import * as actionType from "../../store/user/actionType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { useHistory } from "react-router";
 
 const registerSchema = Yup.object().shape({
   password: Yup.string().required(),
@@ -40,8 +37,6 @@ export default function Login() {
     validationSchema: registerSchema,
     onSubmit: handleForm,
   });
-  if (user.isAuth) {
-  }
 
   return (
     <Section
@@ -94,7 +89,7 @@ export default function Login() {
               }
             />
           </InputWrapper>
-          <Button type="submit" margin="" main padding="10px" width="100%">
+          <Button type="submit" margin="" main padding="15px" width="100%">
             SIGN IN
           </Button>
         </Form>

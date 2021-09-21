@@ -9,6 +9,20 @@ export default function Home() {
   const handleClick = () => {
     history.push("/submit");
   };
+
+  if (window.innerWidth < 700) {
+    return (
+      <LayoutWrapper>
+        <Menu />
+        <Wrapper width="200px">
+          <CategoryList />
+        </Wrapper>
+        <Wrapper width="60%">
+          <DisplayPost url="/post/?" />
+        </Wrapper>
+      </LayoutWrapper>
+    );
+  }
   return (
     <LayoutWrapper>
       <Menu />

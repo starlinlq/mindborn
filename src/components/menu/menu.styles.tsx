@@ -7,12 +7,23 @@ export const MenuWrapper = styled.div`
   background-color: ${({ theme }) => theme.main};
   padding: 10px 15px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const List = styled(Wrapper)`
   padding-bottom: 10px;
-  margin: 25px 0;
+  margin: 10px 0;
   border-bottom: 1px solid #eff6ff;
+  @media screen and (max-width: 700px) {
+    margin: 5px;
+    border-bottom: none;
+    padding: 0;
+  }
 `;
 
 type TitleProps = {

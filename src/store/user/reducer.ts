@@ -7,6 +7,7 @@ const initalState: User = {
   isAuth: false,
   photourl: "",
   loading: false,
+  stateLoading: true,
   token: "",
   notifications: [],
   notifications_read: false,
@@ -22,6 +23,7 @@ const userReducer = (state = initalState, action: any) => {
         username: action.payload.username,
         id: action.payload.id,
         photourl: action.payload.photourl,
+        stateLoading: false,
       };
     case actionType.REGISTER: {
       return {
@@ -31,6 +33,7 @@ const userReducer = (state = initalState, action: any) => {
         photourl: action.payload.photourl,
         id: action.payload.id,
         loading: false,
+        stateLoading: false,
       };
     }
     case actionType.LOADING:
@@ -41,7 +44,7 @@ const userReducer = (state = initalState, action: any) => {
         username: action.payload.username,
         id: action.payload.id,
         photourl: action.payload.photourl,
-
+        stateLoading: false,
         isAuth: true,
         loading: false,
       };
@@ -70,8 +73,11 @@ const userReducer = (state = initalState, action: any) => {
         notifications: [],
         loading: false,
         notifications_read: false,
+        stateLoading: false,
       };
     }
+    case actionType.SET_STATE_LOADING:
+      return { ...state, stateLoading: action.payload };
 
     default:
       return state;

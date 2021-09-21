@@ -42,7 +42,7 @@ export const Picture = styled.img`
   width: 35px;
   height: 35px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 50%;
 `;
 export const Content = styled(Link)`
   font-size: 14px;

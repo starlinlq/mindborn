@@ -1,12 +1,11 @@
 import { IoChatboxOutline } from "react-icons/io5";
 import { Wrapper } from "../../styles/global";
 import LikeCount from "../likeCount/LikeCount";
-import { Photo, Author, Comments } from "../post/post.styles";
+import { Photo, Author, Comments, CreatedDate } from "../post/post.styles";
 import { AuthorSection } from "../singlePost/singlePost.styles";
 import {
   CommentWrapper,
   Content,
-  Date,
   Options,
   OptionsReply,
   Reply,
@@ -17,6 +16,7 @@ import { useState } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { format } from "timeago.js";
 
 type Props = {
   isReply?: boolean;
@@ -41,7 +41,6 @@ export default function Comment({
   repliesCount,
   userId,
   content,
-  postId,
   _id,
   setCreate,
   likeIds,
@@ -63,10 +62,10 @@ export default function Comment({
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <Photo src="https://phlearn.com/wp-content/uploads/2020/08/soft-light-coloring-photoshop-banner-after.jpg" />
           <Author>{userId.username}</Author>
-          <Date> {createdAt.slice(0, 10)}</Date>
+          <CreatedDate> {format(createdAt)}</CreatedDate>
         </div>
 
         {userId._id === id && (

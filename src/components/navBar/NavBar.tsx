@@ -33,6 +33,8 @@ import SearchBar from "../searchbar/Search";
 import * as actionTypes from "../../store/user/actionType";
 import { Dispatch } from "redux";
 import { history } from "../../App";
+import { BiMessage } from "react-icons/bi";
+import { FiBookmark } from "react-icons/fi";
 
 function NavBar() {
   const { user } = useSelector((state: RootState) => state);
@@ -67,7 +69,7 @@ function NavBar() {
 
   const handleLogOut = () => {
     dispatch({ type: actionTypes.LOG_OUT_USER });
-    history.push("/login");
+    history.push("/");
   };
 
   useEffect(() => {
@@ -90,12 +92,17 @@ function NavBar() {
             </Wrapper>
           )}
 
-          <Wrapper flex="flex" align="center" width="fit-content">
-            <Wrapper width="fit-content" style={{ position: "relative" }}>
+          <Wrapper
+            flex="flex"
+            align="center"
+            content="space-between"
+            width="fit-content"
+          >
+            <div style={{ position: "relative" }}>
               {user.isAuth && (
                 <>
-                  {!user.notifications_read && <Notify></Notify>}
-                  <div ref={ref}>
+                  <div ref={ref} style={{ position: "relative" }}>
+                    {!user.notifications_read && <Notify></Notify>}
                     <IoNotificationsOutline
                       style={{
                         color: "grey",
@@ -133,7 +140,7 @@ function NavBar() {
                   ))}
                 </Notifications>
               )}
-            </Wrapper>
+            </div>
 
             {user.isAuth ? (
               <Account
@@ -153,9 +160,21 @@ function NavBar() {
                             <CgProfile />{" "}
                             <To href={`/profile/${user.id}`}>Profile</To>
                           </RowCenter>
+                          {window.innerWidth < 700 && (
+                            <>
+                              <RowCenter>
+                                <BiMessage /> <To href="/messages">Message</To>
+                              </RowCenter>
+                              <RowCenter>
+                                <FiBookmark />{" "}
+                                <To href="/bookmark">Bookmark</To>
+                              </RowCenter>
+                            </>
+                          )}
                           <RowCenter>
-                            <VscAccount /> <To href="/account">Account</To>
+                            <VscAccount /> <To href="/settings">Account</To>
                           </RowCenter>
+
                           <RowCenter>
                             <Button
                               type="button"
@@ -186,7 +205,7 @@ function NavBar() {
                     Register
                   </Button>
                 </Link>
-                <Link href="/login">
+                <Link href="/">
                   <Button width="100px" margin="5px" padding="7px">
                     Sign in
                   </Button>

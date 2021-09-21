@@ -10,6 +10,23 @@ export const PostWrapper = styled.div`
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 15px;
   }
+
+  @media screen and (max-width: 1220px) {
+    width: 92%;
+    margin: 20px 20px;
+  }
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin: 20px 0;
+  }
+`;
+
+export const CreatedDate = styled.span`
+  font-size: 12px;
+  margin-left: 10px;
+  font-family: ${({ theme }) => theme.primaryFont};
+  letter-spacing: 0.05em;
+  color: lightgrey;
 `;
 
 export const AuthorWrapper = styled.div`
@@ -21,7 +38,7 @@ export const AuthorWrapper = styled.div`
 `;
 export const Author = styled.h5`
   font-family: ${({ theme }) => theme.primaryFont};
-  color: gray;
+
   margin-left: 5px;
   letter-spacing: 0.05em;
   cursor: pointer;

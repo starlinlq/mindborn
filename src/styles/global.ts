@@ -27,6 +27,13 @@ export const Wrapper = styled.div<WrapperTypes>`
   align-items: ${({ align }) => align};
   flex-direction: ${({ direction }) => direction};
   justify-content: ${({ content }) => content};
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1024px) {
+  }
 `;
 
 export const RowCenter = styled.div`
@@ -82,11 +89,12 @@ export const Link = styled.a`
 `;
 
 export const Form = styled.form`
-  width: 420px;
+  width: 380px;
   padding: 40px 25px;
   border: 1px solid transparent;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 10px;
+  background-color: white;
 `;
 
 export const FormTitle = styled.h3`
@@ -102,7 +110,7 @@ export const Input = styled.input<InputTypes>`
   background-color: white;
   border-color: ${({ borderColor }) => borderColor};
   width: 100%;
-  padding: 15px 5px;
+  padding: 20px 5px;
   border-radius: 10px;
 `;
 export const Label = styled.label`

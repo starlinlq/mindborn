@@ -17,8 +17,8 @@ export default function Menu() {
       <List width="100%" flex="flex" align="center">
         <VscHome style={{ color: "gray" }} />
         <Title
-          active={history.location.pathname === "/" ? true : false}
-          href="/"
+          active={history.location.pathname === "/home" ? true : false}
+          href="/home"
         >
           Home
         </Title>

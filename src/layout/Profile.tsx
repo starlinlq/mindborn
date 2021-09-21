@@ -9,6 +9,20 @@ import ProfileCard from "../components/profile/ProfileCard";
 export default function Profile() {
   let params = useParams<{ id: string }>();
 
+  if (window.innerWidth < 700) {
+    return (
+      <LayoutWrapper>
+        <Wrapper width="200px">
+          <ProfileCard />
+          <CategoryList />
+        </Wrapper>
+        <Wrapper width="60%">
+          <DisplayPost url={`/post/user/?userId=${params.id}`} />
+        </Wrapper>
+      </LayoutWrapper>
+    );
+  }
+
   return (
     <LayoutWrapper>
       <Menu />

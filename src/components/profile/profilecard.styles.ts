@@ -7,6 +7,10 @@ export const ProfileCardContainer = styled.div`
   padding: 15px;
   color: ${({ theme }) => theme.secondary};
   position: relative;
+
+  @media screen and (max-width: 700px) {
+    padding: 15px 45px;
+  }
 `;
 
 export const Photo = styled.img`
