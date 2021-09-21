@@ -121,7 +121,7 @@ export default function EditProfile() {
               {uploading ? (
                 <Spinner />
               ) : (
-                <Img onClick={handleClick} src={`${profilePic}`} />
+                <Img onClick={handleClick} src={profilePic} />
               )}
             </Wrapper>
             <Wrapper width="50%">

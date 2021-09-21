@@ -33,6 +33,7 @@ export const RowCenter = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
+  margin: 5px 0;
   height: 35px;
   font-size: 17px;
 `;

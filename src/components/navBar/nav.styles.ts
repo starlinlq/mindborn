@@ -84,7 +84,7 @@ export const Details = styled.div`
 export const DetailsWrapper = styled.div`
   position: absolute;
   height: fit-content;
-  width: 150px;
+  width: 200px;
   top: 25px;
   right: 0px;
   display: flex;

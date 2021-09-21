@@ -23,17 +23,16 @@ import {
   To,
   RowCenter,
 } from "../../styles/global";
-import { GiAnubis, GiCircle } from "react-icons/gi";
+import { GiAnubis } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { VscAccount, VscHome } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
 import { IoNotificationsOutline } from "react-icons/io5";
 import SearchBar from "../searchbar/Search";
-import agent from "../../api/agent";
-import { toast } from "react-toastify";
 import * as actionTypes from "../../store/user/actionType";
 import { Dispatch } from "redux";
+import { history } from "../../App";
 
 function NavBar() {
   const { user } = useSelector((state: RootState) => state);
@@ -66,6 +65,11 @@ function NavBar() {
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
+  const handleLogOut = () => {
+    dispatch({ type: actionTypes.LOG_OUT_USER });
+    history.push("/login");
+  };
+
   useEffect(() => {
     dispatch({ type: actionTypes.READ_NOTIFICATIONS, payload: false });
   }, [user.notifications.length, dispatch]);
@@ -75,28 +79,34 @@ function NavBar() {
       <Container>
         <Nav>
           <Wrapper width="120px" flex="block" align="center">
-            <Link href="/">
+            <Link href="/home">
               <GiAnubis style={{ color: "blue", marginRight: "2px" }} />
               <Brand>Spacepark</Brand>
             </Link>
           </Wrapper>
-          <Wrapper width="fit-content">
-            <SearchBar />
-          </Wrapper>
+          {user.isAuth && (
+            <Wrapper width="fit-content">
+              <SearchBar />
+            </Wrapper>
+          )}
 
           <Wrapper flex="flex" align="center" width="fit-content">
             <Wrapper width="fit-content" style={{ position: "relative" }}>
-              {!user.notifications_read && <Notify></Notify>}
-              <div ref={ref}>
-                <IoNotificationsOutline
-                  style={{
-                    color: "grey",
-                    fontSize: "20px",
-                    marginRight: "20px",
-                    cursor: "pointer",
-                  }}
-                />
-              </div>
+              {user.isAuth && (
+                <>
+                  {!user.notifications_read && <Notify></Notify>}
+                  <div ref={ref}>
+                    <IoNotificationsOutline
+                      style={{
+                        color: "grey",
+                        fontSize: "20px",
+                        marginRight: "20px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                </>
+              )}
               {showNotification && (
                 <Notifications>
                   {notifications.map((data) => (
@@ -137,7 +147,7 @@ function NavBar() {
                       <Details>
                         <List>
                           <RowCenter>
-                            <VscHome /> <To href="/">Home</To>
+                            <VscHome /> <To href="/home">Home</To>
                           </RowCenter>
                           <RowCenter>
                             <CgProfile />{" "}
@@ -145,6 +155,17 @@ function NavBar() {
                           </RowCenter>
                           <RowCenter>
                             <VscAccount /> <To href="/account">Account</To>
+                          </RowCenter>
+                          <RowCenter>
+                            <Button
+                              type="button"
+                              onClick={handleLogOut}
+                              width="100%"
+                              padding="8px"
+                              margin="0px"
+                            >
+                              Log out
+                            </Button>
                           </RowCenter>
                         </List>
                       </Details>

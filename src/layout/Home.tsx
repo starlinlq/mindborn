@@ -5,10 +5,7 @@ import DisplayPost from "../components/displaypost/DisplayPost";
 import CategoryList from "../components/categoryList/CategoryList";
 import { history } from "../App";
 
-type Props = {
-  children: React.ReactNode;
-};
-export default function Home({ children }: Props) {
+export default function Home() {
   const handleClick = () => {
     history.push("/submit");
   };

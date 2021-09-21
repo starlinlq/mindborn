@@ -58,6 +58,20 @@ const userReducer = (state = initalState, action: any) => {
       };
     case actionType.READ_NOTIFICATIONS:
       return { ...state, notifications_read: action.payload };
+    case actionType.LOG_OUT_USER: {
+      localStorage.removeItem("Authorization");
+      return {
+        ...state,
+        isAuth: false,
+        username: "",
+        photourl: "",
+        id: "",
+        token: "",
+        notifications: [],
+        loading: false,
+        notifications_read: false,
+      };
+    }
 
     default:
       return state;
