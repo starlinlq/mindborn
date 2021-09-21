@@ -23,6 +23,7 @@ import Chat from "./layout/Chat";
 import * as actionTypes from "./store/user/actionType";
 import agent from "./api/agent";
 import socket from "./socket/socket";
+import PrivateRoute from "./components/privateRoute/PrivateRoute";
 
 export const history = createBrowserHistory();
 
@@ -36,36 +37,42 @@ function App() {
     if (token) {
       dispatch(validateUser(token));
     }
-    let get = async () => {
-      try {
-        let data = await agent.user.getNotifications();
-        console.log(data);
+    if (user.isAuth) {
+      let get = async () => {
+        try {
+          let data = await agent.user.getNotifications();
+          console.log(data);
 
-        dispatch({
-          type: actionTypes.GET_NOTIFICATIONS,
-          payload: { notifications: data },
-        });
-      } catch (error: any) {
-        toast.error(error.message);
-      }
-    };
-    get();
-  }, []);
+          dispatch({
+            type: actionTypes.GET_NOTIFICATIONS,
+            payload: { notifications: data },
+          });
+        } catch (error: any) {
+          toast.error(error.message);
+        }
+      };
+      get();
+    }
+  }, [user.isAuth, dispatch]);
 
   useEffect(() => {
-    socket.emit("sendUser", {
-      id: user.id,
-      photourl: user.photourl,
-      username: user.username,
-    });
+    if (user.isAuth) {
+      socket.emit("sendUser", {
+        id: user.id,
+        photourl: user.photourl,
+        username: user.username,
+      });
+    }
   }, [user]);
 
   useEffect(() => {
-    socket.on("getNotification", (notification) => {
-      dispatch({ type: actionTypes.ADD_NOTIFICATION, payload: notification });
-      console.log("hey there");
-    });
-  }, [dispatch]);
+    if (user.isAuth) {
+      socket.on("getNotification", (notification) => {
+        dispatch({ type: actionTypes.ADD_NOTIFICATION, payload: notification });
+        console.log("hey there");
+      });
+    }
+  }, [user.isAuth, dispatch]);
 
   return (
     <Router history={history}>
@@ -85,16 +92,32 @@ function App() {
         />
         <Container>
           <Switch>
-            <Route exact path="/submit" component={Submit} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profile/:id" component={Profile} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/bookmark" component={Bookmark} />
-            <Route exact path="/post/:id" component={Post} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/search" component={SearchPage} />
-            <Route exact path="/messages" component={Chat} />
+            <Route exact path="/" component={Login} />
+            <PrivateRoute exact path="/bookmark">
+              <Bookmark />
+            </PrivateRoute>
+            <PrivateRoute exact path="/profile/:id">
+              <Profile />
+            </PrivateRoute>
+            <PrivateRoute exact path="/home">
+              <Home />
+            </PrivateRoute>
+            <PrivateRoute exact path="/submit">
+              <Submit />
+            </PrivateRoute>
+            <PrivateRoute exact path="/post/:id">
+              <Post />
+            </PrivateRoute>
+            <PrivateRoute exact path="/settings">
+              <Settings />
+            </PrivateRoute>
+            <PrivateRoute exact path="/search">
+              <SearchPage />
+            </PrivateRoute>
+            <PrivateRoute exact path="messages">
+              <Chat />
+            </PrivateRoute>
           </Switch>
         </Container>
       </ThemeProvider>
