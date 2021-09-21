@@ -64,6 +64,7 @@ export default function Post({
 
       <Wrapper width="100%" flex="flex">
         <LikeCount
+          recieverId={createdBy._id}
           _id={_id}
           count={votesCount}
           likeIds={interestingVotes}

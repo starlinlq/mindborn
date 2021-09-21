@@ -81,6 +81,8 @@ const user = {
     requests.get<{ username: string; photourl: string; _id: string }>(
       `/auth/${id}`
     ),
+  getNotifications: () =>
+    requests.get<NotificationType[]>("/notification", headers),
 };
 
 const chat = {
@@ -140,6 +142,13 @@ const post = {
       }[];
     }>(`/bookmark`, headers),
   delete: (id: string) => requests.delete(`/post/${id}`),
+  sendNotification: (data: {
+    sender: string;
+    reciever: string;
+    notification: string;
+    belongsTo: string;
+    type: string;
+  }) => requests.post("/notification", data),
 };
 
 const comment = {

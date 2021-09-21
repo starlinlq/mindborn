@@ -37,7 +37,6 @@ export default function SinglePost() {
   const handleClick = (id: string) => {
     history.push(`profile/${id}`);
   };
-  console.log(singlePost.createdBy);
 
   return (
     <SinglePostWrapper>
@@ -66,6 +65,7 @@ export default function SinglePost() {
       </Wrapper>
       <Wrapper width="100%" flex="flex">
         <LikeCount
+          recieverId={singlePost.createdBy._id}
           _id={singlePost._id}
           count={singlePost.votesCount}
           likeIds={singlePost.interestingVotes}
@@ -77,7 +77,10 @@ export default function SinglePost() {
         </Comments>
       </Wrapper>
       <Wrapper width="100%">
-        <CreateComment id={singlePost._id} />
+        <CreateComment
+          id={singlePost._id}
+          recieverId={singlePost.createdBy._id}
+        />
       </Wrapper>
       <CommentWrapper id={id} />
     </SinglePostWrapper>

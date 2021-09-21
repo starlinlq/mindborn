@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch, useEffect, useRef } from "react";
 import NavBar from "./components/navBar/NavBar";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./styles/theme";
@@ -7,7 +7,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import Register from "./components/forms/Register";
 import Login from "./components/forms/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createBrowserHistory } from "history";
 import { validateUser } from "./store/user/actionCreators";
@@ -20,19 +20,53 @@ import Bookmark from "./layout/bookmark";
 import Settings from "./layout/Settings";
 import SearchPage from "./layout/SearchPage";
 import Chat from "./layout/Chat";
+import * as actionTypes from "./store/user/actionType";
+import agent from "./api/agent";
+import socket from "./socket/socket";
 
 export const history = createBrowserHistory();
 
 function App() {
   const dispatch: Dispatch<any> = useDispatch();
-  const data = useSelector((state: RootState) => state);
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     let token = localStorage.getItem("Authorization");
+
     if (token) {
       dispatch(validateUser(token));
     }
+    let get = async () => {
+      try {
+        let data = await agent.user.getNotifications();
+        console.log(data);
+
+        dispatch({
+          type: actionTypes.GET_NOTIFICATIONS,
+          payload: { notifications: data },
+        });
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    };
+    get();
   }, []);
+
+  useEffect(() => {
+    socket.emit("sendUser", {
+      id: user.id,
+      photourl: user.photourl,
+      username: user.username,
+    });
+  }, [user]);
+
+  useEffect(() => {
+    socket.on("getNotification", (notification) => {
+      dispatch({ type: actionTypes.ADD_NOTIFICATION, payload: notification });
+      console.log("hey there");
+    });
+  }, [dispatch]);
+
   return (
     <Router history={history}>
       <ThemeProvider theme={lightTheme}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import agent from "../../api/agent";
 import { RootState } from "../../store/store";
@@ -6,7 +6,6 @@ import { Button, Wrapper } from "../../styles/global";
 import ChatOnline from "./ChatOnline";
 import ActiveConversation from "./ActiveConversation";
 import Message from "./Message";
-import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import {
   ChatBox,
@@ -15,19 +14,18 @@ import {
   WriteMessage,
   ConversationContainer,
 } from "./messenger.styles";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import queryString from "query-string";
+import socket from "../../socket/socket";
 
 const Messenger = () => {
   const [conversations, setConversation] = useState<any>(null);
-  const [selectedChat, setSelectedChat] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState<any>();
   const [currentChat, setCurrentChat] = useState<any>(null);
   const [newMessage, setNewMessage] = useState("");
   const [onlineUsers, setOnlineUsers] = useState<any>([]);
   const location = useLocation();
 
-  const params = useParams<{ id: string }>();
   const [messages, setMessages] = useState<
     {
       conversationId: string;
@@ -37,21 +35,17 @@ const Messenger = () => {
       createdAt: string;
     }[]
   >([]);
-  const socket = useRef<any>();
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    socket.current = io("ws://localhost:3002");
-  }, []);
-
-  useEffect(() => {
-    socket.current.emit("sendUser", {
+    socket.emit("sendUser", {
       id: user.id,
       photourl: user.photourl,
       username: user.username,
     });
-    socket.current.on("getUsers", (users: any) => {
+    socket.on("getUsers", (users: any) => {
       setOnlineUsers(users);
     });
   }, [user]);
@@ -111,7 +105,7 @@ const Messenger = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.current.on("getMessage", ({ sender, text }: any) => {
+      socket.on("getMessage", ({ sender, text }: any) => {
         setArrivalMessage({
           sender,
           text,
@@ -121,7 +115,7 @@ const Messenger = () => {
         });
       });
     }
-  }, [socket]);
+  }, []);
 
   useEffect(() => {
     if (currentChat) {
@@ -139,9 +133,8 @@ const Messenger = () => {
       sender: user.id,
     };
     console.log(currentChat);
-    socket.current.emit("sendMessage", {
+    socket.emit("sendMessage", {
       sender: { username: user.id, photourl: user.photourl, id: user.id },
-
       recieverId: currentChat.members.find(
         (member: string) => member !== user.id
       ),

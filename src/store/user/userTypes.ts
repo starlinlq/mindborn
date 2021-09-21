@@ -5,6 +5,8 @@ export type User = {
   isAuth: boolean;
   loading: boolean;
   token: string;
+  notifications: NotificationType[];
+  notifications_read: boolean;
 };
 
 export type UserAction = {

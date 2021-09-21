@@ -8,9 +8,11 @@ const initalState: User = {
   photourl: "",
   loading: false,
   token: "",
+  notifications: [],
+  notifications_read: false,
 };
 
-const userReducer = (state = initalState, action: UserAction) => {
+const userReducer = (state = initalState, action: any) => {
   switch (action.type) {
     case actionType.VALIDATE_TOKEN:
       return {
@@ -47,6 +49,15 @@ const userReducer = (state = initalState, action: UserAction) => {
       return { ...state, username: action.payload.username };
     case actionType.UPDATE_PHOTO:
       return { ...state, photourl: action.payload.photourl };
+    case actionType.GET_NOTIFICATIONS:
+      return { ...state, notifications: action.payload.notifications };
+    case actionType.ADD_NOTIFICATION:
+      return {
+        ...state,
+        notifications: [action.payload, ...state.notifications],
+      };
+    case actionType.READ_NOTIFICATIONS:
+      return { ...state, notifications_read: action.payload };
 
     default:
       return state;

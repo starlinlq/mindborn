@@ -10,6 +10,9 @@ import { RootState } from "../../store/store";
 import { createComment } from "../../store/post/actionCreators";
 import agent from "../../api/agent";
 import * as actionTypes from "../../store/post/actionTypes";
+import { toast } from "react-toastify";
+import socket from "../../socket/socket";
+import { useEffect } from "react";
 
 const commentSchema = Yup.object().shape({
   comment: Yup.string()
@@ -21,19 +24,22 @@ const commentSchema = Yup.object().shape({
 type Props = {
   id: string;
   addReply?: Function;
+  recieverId?: string;
 };
 
-export default function CreateComment({ id, addReply }: Props) {
+export default function CreateComment({ id, addReply, recieverId }: Props) {
   const dispatch: Dispatch<any> = useDispatch();
   const { user } = useSelector((state: RootState) => state);
 
-  const handleForm = (values: any, { resetForm }: any) => {
+  const handleForm = async (values: any, { resetForm }: any) => {
     if (addReply) {
       dispatch({ type: actionTypes.ADD_COMMNET_COUNT_REPLY, payload: id });
 
       addReply(values.comment);
       return;
     }
+
+    await sendNotification();
     dispatch(createComment(values.comment, id));
     resetForm();
   };
@@ -44,8 +50,31 @@ export default function CreateComment({ id, addReply }: Props) {
     validationSchema: commentSchema,
     onSubmit: handleForm,
   });
-  if (user.isAuth) {
-  }
+
+  useEffect(() => {}, []);
+
+  const sendNotification = async () => {
+    let data = {
+      sender: user.id,
+      reciever: recieverId || "",
+      type: "comment",
+      notification: "Commented on your post",
+      belongsTo: id,
+    };
+    try {
+      await agent.post.sendNotification(data);
+      socket.emit("sendNotification", {
+        ...data,
+        sender: {
+          id: user.id,
+          username: user.username,
+          photourl: user.photourl,
+        },
+      });
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <Section

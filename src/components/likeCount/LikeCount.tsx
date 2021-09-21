@@ -6,15 +6,25 @@ import { toast } from "react-toastify";
 import agent from "../../api/agent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import socket from "../../socket/socket";
 type Props = {
   _id: string;
   count: number;
   likeIds: any[];
   type: string;
+  recieverId?: string;
 };
-export default function LikeCount({ count, likeIds, _id, type }: Props) {
+export default function LikeCount({
+  count,
+  likeIds,
+  _id,
+  type,
+  recieverId,
+}: Props) {
   let [liked, setLiked] = useState(false);
-  const { id } = useSelector((state: RootState) => state.user);
+  const { id, username, photourl } = useSelector(
+    (state: RootState) => state.user
+  );
   const [total, setTotal] = useState(count);
 
   useEffect(() => {
@@ -30,6 +40,13 @@ export default function LikeCount({ count, likeIds, _id, type }: Props) {
   }, []);
 
   const handleLiked = async () => {
+    let notification = {
+      sender: id,
+      reciever: recieverId || "",
+      notification: "like your post",
+      belongsTo: _id,
+      type: "like",
+    };
     try {
       if (!liked && type === "comment") {
         await agent.comment.like(_id);
@@ -38,6 +55,11 @@ export default function LikeCount({ count, likeIds, _id, type }: Props) {
         return;
       } else if (!liked && type === "post") {
         await agent.post.like(_id);
+        await agent.post.sendNotification(notification);
+        socket.emit("sendNotification", {
+          ...notification,
+          sender: { username, photourl, id },
+        });
         setLiked(true);
         setTotal(total + 1);
         return;
@@ -57,6 +79,7 @@ export default function LikeCount({ count, likeIds, _id, type }: Props) {
         return;
       } else if (liked && type === "post") {
         await agent.post.dislike(_id);
+
         setTotal(total - 1);
         setLiked(false);
         return;

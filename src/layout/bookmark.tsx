@@ -19,6 +19,7 @@ export default function Bookmark() {
   useEffect(() => {
     const get = async () => {
       const { data } = await agent.post.getBookmarks();
+      console.log(data);
       setState(data);
     };
     get();
@@ -28,21 +29,25 @@ export default function Bookmark() {
     <LayoutWrapper>
       <Menu />
       <Wrapper width="60%">
-        {state.map(({ createdBy, postId }) => (
-          <Post
-            key={postId._id}
-            category={postId.category}
-            title={postId.title}
-            description={postId.description}
-            createdBy={createdBy}
-            interestingVotes={postId.interestingVotes}
-            commentCount={postId.commentCount}
-            _id={postId._id}
-            votesCount={postId.votesCount}
-            createdAt={postId.createdAt}
-            bookmarkIds={postId.bookmarkIds}
-          />
-        ))}
+        {state.map(({ createdBy, postId }) => {
+          if (postId) {
+            return (
+              <Post
+                key={postId._id}
+                category={postId.category}
+                title={postId.title}
+                description={postId.description}
+                createdBy={createdBy}
+                interestingVotes={postId.interestingVotes}
+                commentCount={postId.commentCount}
+                _id={postId._id}
+                votesCount={postId.votesCount}
+                createdAt={postId.createdAt}
+                bookmarkIds={postId.bookmarkIds}
+              />
+            );
+          }
+        })}
         {state.length === 0 && (
           <Wrapper
             width="100%"
