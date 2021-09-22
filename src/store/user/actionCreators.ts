@@ -2,7 +2,6 @@ import * as actionTypes from "./actionType";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import agent from "../../api/agent";
-import { RootState } from "../store";
 import { history } from "../../App";
 import { toast } from "react-toastify";
 
@@ -26,7 +25,7 @@ export function loginUser({
 
       dispatch({ type: actionTypes.LOG_IN, payload: { ...user, noti } });
 
-      history.push("/home");
+      history.push("/");
     } catch (error) {
       dispatch({ type: actionTypes.LOADING, payload: {} });
     }
@@ -49,7 +48,7 @@ export function registerUser(data: {
       localStorage.setItem("Authorization", `Bearer ${register.token}`);
 
       dispatch({ type: actionTypes.REGISTER, payload: register });
-      history.push("/home");
+      history.push("/");
     } catch (error: any) {
       dispatch({ type: actionTypes.LOADING });
       toast.error(error);
