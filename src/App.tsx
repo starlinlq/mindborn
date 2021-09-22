@@ -32,25 +32,14 @@ function App() {
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    let get = async () => {
-      let data = await agent.user.getNotifications(user.id);
-      dispatch({
-        type: actionTypes.GET_NOTIFICATIONS,
-        payload: { notifications: data },
-      });
-    };
-    if (user.id.length > 0) {
+    if (user.isAuth) {
       socket.emit("sendUser", {
         id: user.id,
         photourl: user.photourl,
         username: user.username,
       });
-      socket.on("getNotification", (notification) => {
-        dispatch({ type: actionTypes.ADD_NOTIFICATION, payload: notification });
-      });
-      get();
     }
-  }, [user]);
+  }, [user.isAuth]);
 
   useEffect(() => {
     let token = localStorage.getItem("Authorization");

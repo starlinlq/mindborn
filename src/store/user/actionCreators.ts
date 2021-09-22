@@ -22,7 +22,9 @@ export function loginUser({
 
       localStorage.setItem("Authorization", `Bearer ${token}`);
 
-      dispatch({ type: actionTypes.LOG_IN, payload: user });
+      let noti = await agent.user.getNotifications(user.id);
+
+      dispatch({ type: actionTypes.LOG_IN, payload: { ...user, noti } });
 
       history.push("/home");
     } catch (error) {

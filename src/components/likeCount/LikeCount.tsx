@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { Like, Count } from "./likeCount.styles";
 import { BsFillHeartFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 import agent from "../../api/agent";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import socket from "../../socket/socket";
+import * as actionTypes from "../../store/user/actionType";
 type Props = {
   _id: string;
   count: number;
@@ -26,6 +27,7 @@ export default function LikeCount({
     (state: RootState) => state.user
   );
   const [total, setTotal] = useState(count);
+  const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
     let found = null;
@@ -60,11 +62,20 @@ export default function LikeCount({
           ...notification,
           sender: { username, photourl, id },
         });
+        socket.once("getNotification", (notification) => {
+          console.log(notification);
+          dispatch({
+            type: actionTypes.ADD_NOTIFICATION,
+            payload: notification,
+          });
+        });
+
         setLiked(true);
         setTotal(total + 1);
         return;
       }
     } catch (error: any) {
+      console.log(error);
       toast.error(error.message);
       setLiked(false);
       return;

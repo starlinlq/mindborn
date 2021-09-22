@@ -13,6 +13,7 @@ import * as actionTypes from "../../store/post/actionTypes";
 import { toast } from "react-toastify";
 import socket from "../../socket/socket";
 import { useEffect } from "react";
+import * as userActions from "../../store/user/actionType";
 
 const commentSchema = Yup.object().shape({
   comment: Yup.string()
@@ -70,6 +71,12 @@ export default function CreateComment({ id, addReply, recieverId }: Props) {
           username: user.username,
           photourl: user.photourl,
         },
+      });
+      socket.once("getNotification", (notification) => {
+        dispatch({
+          type: userActions.ADD_NOTIFICATION,
+          payload: notification,
+        });
       });
     } catch (error: any) {
       toast.error(error.message);

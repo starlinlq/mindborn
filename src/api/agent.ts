@@ -3,7 +3,7 @@ import { request } from "http";
 import { toast } from "react-toastify";
 import { Comment, Reply, SinglePost } from "../store/post/postTypes";
 import { Profile } from "../store/user/userTypes";
-axios.defaults.baseURL = "https://mindborn.herokuapp.com/api/v1";
+axios.defaults.baseURL = "http://localhost:3000/api/v1";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
 const headers = {
@@ -37,7 +37,13 @@ const user = {
     name: string;
   }) => requests.post<any>("/auth/register", data),
   validate: (token: string) =>
-    requests.get("auth/validate", {
+    requests.get<{
+      exp: number;
+      iat: number;
+      id: string;
+      photourl: string;
+      username: string;
+    }>("auth/validate", {
       headers: { Authorization: token },
     }),
   getProfile: (id: string) =>

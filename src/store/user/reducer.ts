@@ -47,6 +47,7 @@ const userReducer = (state = initalState, action: any) => {
         stateLoading: false,
         isAuth: true,
         loading: false,
+        notifications: action.payload.noti,
       };
     case actionType.UPDATE_ID:
       return { ...state, username: action.payload.username };
@@ -57,6 +58,7 @@ const userReducer = (state = initalState, action: any) => {
     case actionType.ADD_NOTIFICATION:
       return {
         ...state,
+        notifications_read: false,
         notifications: [action.payload, ...state.notifications],
       };
     case actionType.READ_NOTIFICATIONS:

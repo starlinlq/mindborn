@@ -17,6 +17,7 @@ import {
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import socket from "../../socket/socket";
+import { toast } from "react-toastify";
 
 const Messenger = () => {
   const [conversations, setConversation] = useState<any>(null);
@@ -45,7 +46,7 @@ const Messenger = () => {
       photourl: user.photourl,
       username: user.username,
     });
-    socket.on("getUsers", (users: any) => {
+    socket.once("getUsers", (users: any) => {
       setOnlineUsers(users);
     });
   }, [user]);
@@ -58,7 +59,9 @@ const Messenger = () => {
 
           setConversation(res);
         }
-      } catch (error) {}
+      } catch (error: any) {
+        toast.error(error.message);
+      }
     };
     get();
   }, [user.id, currentChat]);
@@ -90,8 +93,8 @@ const Messenger = () => {
           let messages = await agent.chat.getMessages(currentChat._id);
           setMessages(messages);
         }
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        toast.error(error.message);
       }
     };
     getMessages();
