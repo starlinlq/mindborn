@@ -60,6 +60,10 @@ export const Title = styled.h1`
   font-weight: normal;
   font-size: 20px;
   letter-spacing: 0.03em;
+
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 
 export const Topic = styled.p`
@@ -83,6 +87,10 @@ export const Description = styled.p`
   -webkit-box-orient: vertical;
   line-height: 21px;
   margin: 15px 0;
+
+  @media screen and (max-width: 500px) {
+    font-size: 13px;
+  }
 `;
 
 export const Comments = styled.div`

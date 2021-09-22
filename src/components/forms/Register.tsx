@@ -44,7 +44,7 @@ export default function Register() {
       style={{
         display: "flex",
         alignItems: "center",
-        height: "70vh",
+        height: "100vh",
         justifyContent: "center",
       }}
     >

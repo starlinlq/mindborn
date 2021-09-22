@@ -3,7 +3,7 @@ import { request } from "http";
 import { toast } from "react-toastify";
 import { Comment, Reply, SinglePost } from "../store/post/postTypes";
 import { Profile } from "../store/user/userTypes";
-axios.defaults.baseURL = "http://localhost:3000/api/v1";
+axios.defaults.baseURL = "https://mindborn.herokuapp.com/api/v1";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
 const headers = {
@@ -81,8 +81,8 @@ const user = {
     requests.get<{ username: string; photourl: string; _id: string }>(
       `/auth/${id}`
     ),
-  getNotifications: () =>
-    requests.get<NotificationType[]>("/notification", headers),
+  getNotifications: (id: string) =>
+    requests.get<NotificationType[]>(`/notification/${id}`, headers),
 };
 
 const chat = {

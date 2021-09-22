@@ -34,6 +34,7 @@ export default function Bookmark() {
             backgroundColor: "white",
             padding: "10px",
             borderRadius: "10px",
+            marginBottom: "15px",
           }}
         >
           BOOKMARKED

@@ -14,7 +14,7 @@ export const SearchWrapper = styled.div`
     margin: 0 20px;
   }
   @media screen and (max-width: 400px) {
-    width: 100px;
+    width: 90px;
     margin: 0 20px;
   }
 `;

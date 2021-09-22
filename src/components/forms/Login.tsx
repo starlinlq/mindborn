@@ -43,7 +43,7 @@ export default function Login() {
       style={{
         display: "flex",
         alignItems: "center",
-        height: "70vh",
+        height: "100vh",
         justifyContent: "center",
       }}
     >

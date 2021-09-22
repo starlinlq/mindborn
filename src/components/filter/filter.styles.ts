@@ -19,6 +19,11 @@ export const FilterWrapper = styled.div`
     width: 100%;
     margin: 0;
   }
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    overflow: auto;
+    margin: 0;
+  }
 `;
 
 export const Type = styled.span`

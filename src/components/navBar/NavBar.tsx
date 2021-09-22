@@ -72,10 +72,6 @@ function NavBar() {
     history.push("/");
   };
 
-  useEffect(() => {
-    dispatch({ type: actionTypes.READ_NOTIFICATIONS, payload: false });
-  }, [user.notifications.length, dispatch]);
-
   return (
     <NavWrapper>
       <Container>
@@ -83,7 +79,7 @@ function NavBar() {
           <Wrapper width="120px" flex="block" align="center">
             <Link href="/home">
               <GiAnubis style={{ color: "blue", marginRight: "2px" }} />
-              <Brand>Spacepark</Brand>
+              <Brand>MindBorn</Brand>
             </Link>
           </Wrapper>
           {user.isAuth && (

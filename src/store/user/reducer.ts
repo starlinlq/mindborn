@@ -10,7 +10,7 @@ const initalState: User = {
   stateLoading: true,
   token: "",
   notifications: [],
-  notifications_read: false,
+  notifications_read: true,
 };
 
 const userReducer = (state = initalState, action: any) => {
@@ -72,7 +72,7 @@ const userReducer = (state = initalState, action: any) => {
         token: "",
         notifications: [],
         loading: false,
-        notifications_read: false,
+        notifications_read: true,
         stateLoading: false,
       };
     }
