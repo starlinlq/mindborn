@@ -24,6 +24,7 @@ const userReducer = (state = initalState, action: any) => {
         id: action.payload.id,
         photourl: action.payload.photourl,
         stateLoading: false,
+        notifications: action.payload.noti,
       };
     case actionType.REGISTER: {
       return {

@@ -65,9 +65,14 @@ export function validateUser(
     getState
   ): Promise<void> => {
     try {
-      let data = await agent.user.validate(token);
+      let user = await agent.user.validate(token);
 
-      dispatch({ type: actionTypes.VALIDATE_TOKEN, payload: data });
+      let noti = await agent.user.getNotifications(user.id);
+
+      dispatch({
+        type: actionTypes.VALIDATE_TOKEN,
+        payload: { ...user, noti },
+      });
     } catch (error: any) {
       localStorage.removeItem("Authorization");
       toast.error(error.message);
