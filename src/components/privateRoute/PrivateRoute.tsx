@@ -20,7 +20,7 @@ export default function PrivateRoute({ children, path, exact }: Props) {
         user.isAuth ? (
           children
         ) : (
-          <Redirect to={{ pathname: "/", state: { from: location } }} />
+          <Redirect to={{ pathname: "/login", state: { from: location } }} />
         )
       }
     />

@@ -63,7 +63,6 @@ export default function LikeCount({
           sender: { username, photourl, id },
         });
         socket.once("getNotification", (notification) => {
-          console.log(notification);
           dispatch({
             type: actionTypes.ADD_NOTIFICATION,
             payload: notification,
@@ -75,7 +74,6 @@ export default function LikeCount({
         return;
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error.message);
       setLiked(false);
       return;

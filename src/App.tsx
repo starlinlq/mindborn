@@ -72,7 +72,7 @@ function App() {
           ) : (
             <Switch>
               <Route exact path="/register" component={Register} />
-              <Route exact path="/" component={Login} />
+              <Route exact path="/login" component={Login} />
 
               <PrivateRoute exact path="/bookmark">
                 <Bookmark />
@@ -80,7 +80,7 @@ function App() {
               <PrivateRoute exact path="/profile/:id">
                 <Profile />
               </PrivateRoute>
-              <PrivateRoute exact path="/home">
+              <PrivateRoute exact path="/">
                 <Home />
               </PrivateRoute>
               <PrivateRoute exact path="/submit">

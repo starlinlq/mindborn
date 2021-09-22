@@ -77,7 +77,7 @@ function NavBar() {
       <Container>
         <Nav>
           <Wrapper width="120px" flex="block" align="center">
-            <Link href="/home">
+            <Link href="/">
               <GiAnubis style={{ color: "blue", marginRight: "2px" }} />
               <Brand>MindBorn</Brand>
             </Link>
@@ -150,7 +150,7 @@ function NavBar() {
                       <Details>
                         <List>
                           <RowCenter>
-                            <VscHome /> <To href="/home">Home</To>
+                            <VscHome /> <To href="/">Home</To>
                           </RowCenter>
                           <RowCenter>
                             <CgProfile />{" "}
@@ -201,7 +201,7 @@ function NavBar() {
                     Register
                   </Button>
                 </Link>
-                <Link href="/">
+                <Link href="/login">
                   <Button width="100px" margin="5px" padding="7px">
                     Sign in
                   </Button>
