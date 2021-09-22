@@ -3,21 +3,30 @@ import { request } from "http";
 import { toast } from "react-toastify";
 import { Comment, Reply, SinglePost } from "../store/post/postTypes";
 import { Profile } from "../store/user/userTypes";
-axios.defaults.baseURL = "https://mindborn.herokuapp.com/api/v1";
+axios.defaults.baseURL = "http://localhost:3000/api/v1";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
-const headers = {
-  headers: { Authorization: `${localStorage.getItem("Authorization")}` },
-};
 
 const requests = {
   get: <T>(url: string, data?: any) => axios.get<T>(url, data).then(response),
   post: <T>(url: string, data?: any) =>
-    axios.post<T>(url, data, headers).then(response),
+    axios
+      .post<T>(url, data, {
+        headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+      })
+      .then(response),
   patch: <T>(url: string, data: any) =>
-    axios.patch<T>(url, data, headers).then(response),
+    axios
+      .patch<T>(url, data, {
+        headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+      })
+      .then(response),
   delete: <T>(url: string, data?: any) =>
-    axios.delete<T>(url, headers).then(response),
+    axios
+      .delete<T>(url, {
+        headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+      })
+      .then(response),
 };
 
 const user = {
@@ -88,7 +97,9 @@ const user = {
       `/auth/${id}`
     ),
   getNotifications: (id: string) =>
-    requests.get<NotificationType[]>(`/notification/${id}`, headers),
+    requests.get<NotificationType[]>(`/notification/${id}`, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
 };
 
 const chat = {
@@ -133,7 +144,9 @@ const post = {
   getPosts: (url: string, filter: string, category: string, limit: number) =>
     requests.get<{ length: number; posts: SinglePost[] }>(
       `${url}&filterBy=${filter}&category=${category}&limit=${limit}`,
-      headers
+      {
+        headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+      }
     ),
   like: (id: string) => requests.post(`/post/upvote/${id}`),
   dislike: (id: string) => requests.delete(`/post/upvote/${id}`),
@@ -146,7 +159,9 @@ const post = {
         postId: SinglePost;
         createdBy: { photourl: string; _id: string; username: string };
       }[];
-    }>(`/bookmark`, headers),
+    }>(`/bookmark`, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
   delete: (id: string) => requests.delete(`/post/${id}`),
   sendNotification: (data: {
     sender: string;

@@ -10,7 +10,7 @@ export const SearchWrapper = styled.div`
   border-radius: 10px;
 
   @media screen and (max-width: 500px) {
-    width: 155px;
+    width: 175px;
     margin: 0 20px;
   }
   @media screen and (max-width: 400px) {
