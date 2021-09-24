@@ -1,8 +1,6 @@
-# mindborn
+# mindborn 
 
-lifeinvader is a twitter inspired, fully responsive full stack social media application built with the following technologies:
-# Technologies
-
+lifeinvader is a twitter inspired, fully responsive full stack social media application built with the following technologies: 
 - React
 - JavaScript
 - -Typescript
@@ -25,3 +23,6 @@ lifeinvader is a twitter inspired, fully responsive full stack social media appl
 - Real time notifications
 - New message / notification preview popup
 - Upload profile images
+
+# [Live website](https://www.mindborn.org/)
+
