@@ -11,7 +11,7 @@ lifeinvader is a twitter inspired, fully responsive full stack social media appl
 - Express.js
 - MongoDB
 - Socket.io
-- -Redux
+- Redux
 
 # Notable features include:
 
