@@ -38,6 +38,10 @@ export default function Login() {
     onSubmit: handleForm,
   });
 
+  const handleGuest = () => {
+    dispatch(loginUser({ userid: "josemiguel", password: "password" }));
+  };
+
   return (
     <Section
       style={{
@@ -89,7 +93,23 @@ export default function Login() {
               }
             />
           </InputWrapper>
-          <Button type="submit" margin="" main padding="15px" width="100%">
+          <Button
+            main
+            type="button"
+            onClick={handleGuest}
+            margin=""
+            padding="15px"
+            width="100%"
+          >
+            Guest
+          </Button>
+          <Button
+            style={{ marginTop: "5px" }}
+            type="submit"
+            margin=""
+            padding="15px"
+            width="100%"
+          >
             SIGN IN
           </Button>
         </Form>

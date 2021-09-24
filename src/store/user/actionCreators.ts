@@ -12,6 +12,7 @@ export function loginUser({
 }: LoginUser): ThunkAction<Promise<void>, {}, {}, AnyAction> {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     dispatch({ type: actionTypes.LOADING, payload: {} });
+    console.log(userid);
 
     try {
       const { user, token } = await agent.user.login({
